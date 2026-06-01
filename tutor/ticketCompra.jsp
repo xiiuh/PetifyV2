@@ -8,7 +8,7 @@
 
     Integer idOrden = (Integer) session.getAttribute("ultimaOrden");
     if (idOrden == null) {
-        response.sendRedirect(request.getContextPath() + "/tutor/tienda.jsp");
+        response.sendRedirect(request.getContextPath() + "/tienda.jsp");
         return;
     }
 
@@ -27,7 +27,7 @@
 
     if (!rs.next()) {
         rs.close(); ps.close(); con.close();
-        response.sendRedirect(request.getContextPath() + "/tutor/tienda.jsp");
+        response.sendRedirect(request.getContextPath() + "/tienda.jsp");
         return;
     }
 
@@ -69,7 +69,7 @@
 
     <div class="main-content">
         <div class="no-print" style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:1.5rem;">
-            <a href="${pageContext.request.contextPath}/tutor/tienda.jsp" class="btn-back" style="margin:0;">
+            <a href="${pageContext.request.contextPath}/tienda.jsp" class="btn-back" style="margin:0;">
                 ← Volver a la tienda
             </a>
             <button onclick="window.print()" class="btn-acceso"

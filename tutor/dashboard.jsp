@@ -53,7 +53,7 @@
                     <p>Agenda, edita o cancela citas con el veterinario</p>
                 </a>
 
-                <a href="${pageContext.request.contextPath}/tutor/tienda.jsp" class="dash-card">
+                <a href="${pageContext.request.contextPath}/tienda.jsp" class="dash-card">
                     <h3>Tienda</h3>
                     <p>Consulta productos y gestiona tu carrito</p>
                 </a>

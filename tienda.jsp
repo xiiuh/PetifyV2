@@ -1,48 +1,49 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.sql.*, javax.naming.*, javax.sql.*, java.util.*" %>
 <%
-    if (request.getUserPrincipal() == null) {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
-        return;
-    }
+    boolean loggedIn = request.getUserPrincipal() != null;
+    String correo    = loggedIn ? request.getUserPrincipal().getName() : null;
 
-    String correo = request.getUserPrincipal().getName();
-
-    HashMap<Integer, Integer> carrito = (HashMap<Integer, Integer>) session.getAttribute("carrito");
-    if (carrito == null) {
-        carrito = new HashMap<>();
-        session.setAttribute("carrito", carrito);
-    }
-
-    if ("POST".equals(request.getMethod()) && "agregar".equals(request.getParameter("accion"))) {
-        String idStr  = request.getParameter("id_producto");
-        String canStr = request.getParameter("cantidad");
-        if (idStr != null && canStr != null) {
-            try {
-                int id  = Integer.parseInt(idStr);
-                int can = Math.max(1, Integer.parseInt(canStr));
-                carrito.merge(id, can, Integer::sum);
-            } catch (NumberFormatException ignored) {}
+    HashMap<Integer, Integer> carrito = null;
+    if (loggedIn) {
+        carrito = (HashMap<Integer, Integer>) session.getAttribute("carrito");
+        if (carrito == null) {
+            carrito = new HashMap<>();
+            session.setAttribute("carrito", carrito);
         }
-        response.sendRedirect(request.getContextPath() + "/tutor/tienda.jsp");
-        return;
+        if ("POST".equals(request.getMethod()) && "agregar".equals(request.getParameter("accion"))) {
+            String idStr  = request.getParameter("id_producto");
+            String canStr = request.getParameter("cantidad");
+            if (idStr != null && canStr != null) {
+                try {
+                    int id  = Integer.parseInt(idStr);
+                    int can = Math.max(1, Integer.parseInt(canStr));
+                    carrito.merge(id, can, Integer::sum);
+                } catch (NumberFormatException ignored) {}
+            }
+            response.sendRedirect(request.getContextPath() + "/tienda.jsp");
+            return;
+        }
     }
 
     Context ctx = new InitialContext();
     DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petify");
     Connection con = ds.getConnection();
 
-    PreparedStatement ps = con.prepareStatement("SELECT nom_tutor FROM tutor WHERE correo = ?");
-    ps.setString(1, correo);
-    ResultSet rs = ps.executeQuery();
-    String nomTutor = correo;
-    if (rs.next()) nomTutor = rs.getString("nom_tutor");
-    rs.close(); ps.close();
+    String nomTutor = null;
+    if (loggedIn) {
+        PreparedStatement psNom = con.prepareStatement("SELECT nom_tutor FROM tutor WHERE correo = ?");
+        psNom.setString(1, correo);
+        ResultSet rsNom = psNom.executeQuery();
+        if (rsNom.next()) nomTutor = rsNom.getString("nom_tutor");
+        rsNom.close(); psNom.close();
+        if (nomTutor == null) nomTutor = correo;
+    }
 
-    ps = con.prepareStatement(
+    PreparedStatement ps = con.prepareStatement(
         "SELECT id_producto, nombre, descripcion, cantidad, precio FROM productos WHERE cantidad > 0"
     );
-    rs = ps.executeQuery();
+    ResultSet rs = ps.executeQuery();
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -57,20 +58,23 @@
 
     <div class="topbar">
         <span class="logo">PETIFY</span>
-        <span class="user-welcome">Hola, <%= nomTutor %></span>
-        <a href="${pageContext.request.contextPath}/logout.jsp" class="btn-logout">Cerrar sesión</a>
-    </div>
-
-    <div class="main-content">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;">
-            <a href="${pageContext.request.contextPath}/tutor/dashboard.jsp" class="btn-back" style="margin:0;">← Volver</a>
+        <% if (loggedIn) { %>
+            <span class="user-welcome">Hola, <%= nomTutor %></span>
             <a href="${pageContext.request.contextPath}/tutor/carritoCompras.jsp"
                class="btn-acceso"
                style="display:inline-block;width:auto;padding:.6rem 1.4rem;text-decoration:none;">
                 Carrito (<%= carrito.size() %> producto<%= carrito.size() != 1 ? "s" : "" %>)
             </a>
-        </div>
+            <a href="${pageContext.request.contextPath}/logout.jsp" class="btn-logout">Cerrar sesión</a>
+        <% } else { %>
+            <a href="${pageContext.request.contextPath}/login.jsp" class="btn-acceso"
+               style="display:inline-block;width:auto;padding:.6rem 1.4rem;text-decoration:none;">
+                Iniciar sesión
+            </a>
+        <% } %>
+    </div>
 
+    <div class="main-content">
         <h2 class="page__title">Tienda</h2>
         <p class="page-sub">Productos disponibles para tu mascota</p>
 
@@ -79,11 +83,11 @@
             boolean hayProductos = false;
             while (rs.next()) {
                 hayProductos = true;
-                int    idProd  = rs.getInt("id_producto");
-                String nombre  = rs.getString("nombre");
-                String desc    = rs.getString("descripcion");
-                int    stock   = rs.getInt("cantidad");
-                double precio  = rs.getDouble("precio");
+                int    idProd = rs.getInt("id_producto");
+                String nombre = rs.getString("nombre");
+                String desc   = rs.getString("descripcion");
+                int    stock  = rs.getInt("cantidad");
+                double precio = rs.getDouble("precio");
         %>
             <div class="dash-card" style="display:flex;flex-direction:column;gap:.75rem;">
                 <h3><%= nombre %></h3>
@@ -92,6 +96,7 @@
                 <% } %>
                 <p style="font-size:1.1rem;font-weight:700;margin:0;">$<%= String.format("%.2f", precio) %></p>
                 <p style="font-size:.8rem;color:var(--muted);margin:0;">Stock: <%= stock %></p>
+                <% if (loggedIn) { %>
                 <form method="post" style="display:flex;gap:.5rem;align-items:center;margin-top:auto;">
                     <input type="hidden" name="accion"      value="agregar"/>
                     <input type="hidden" name="id_producto" value="<%= idProd %>"/>
@@ -102,6 +107,14 @@
                         Agregar
                     </button>
                 </form>
+                <% } else { %>
+                <div style="margin-top:auto;">
+                    <a href="${pageContext.request.contextPath}/login.jsp" class="btn-acceso"
+                       style="display:inline-block;width:auto;padding:.4rem 1rem;font-size:.85rem;text-decoration:none;text-align:center;">
+                        Inicia sesión para comprar
+                    </a>
+                </div>
+                <% } %>
             </div>
         <%
             }

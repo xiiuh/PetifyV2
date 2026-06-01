@@ -30,7 +30,7 @@
 
     if ("cancelar".equals(accion)) {
         session.removeAttribute("carrito");
-        response.sendRedirect(request.getContextPath() + "/tutor/tienda.jsp");
+        response.sendRedirect(request.getContextPath() + "/tienda.jsp");
         return;
     }
 
@@ -138,7 +138,7 @@
     </div>
 
     <div class="main-content">
-        <a href="${pageContext.request.contextPath}/tutor/tienda.jsp" class="btn-back">← Seguir comprando</a>
+        <a href="${pageContext.request.contextPath}/tienda.jsp" class="btn-back">← Seguir comprando</a>
         <h2 class="page__title">Carrito de Compras</h2>
 
         <% if (errorCarrito != null) { %>
