@@ -45,7 +45,7 @@
             "sexo VARCHAR(50) NOT NULL," +
             "raza VARCHAR(50) NOT NULL," +
             "peso DECIMAL(5,2) NOT NULL," +
-            "id_vete INT NOT NULL," +
+            "id_vete INT NULL," +
             "id_tutor INT NOT NULL," +
             "FOREIGN KEY (id_vete) REFERENCES veterinario(id_vete)," +
             "FOREIGN KEY (id_tutor) REFERENCES tutor(id_tutor))");
@@ -61,6 +61,29 @@
             "FOREIGN KEY (id_vete) REFERENCES veterinario(id_vete)," +
             "FOREIGN KEY (id_tutor) REFERENCES tutor(id_tutor)," +
             "UNIQUE (fecha, hora, id_vete))");
+
+        st.executeUpdate("CREATE TABLE IF NOT EXISTS productos (" +
+            "id_producto INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+            "nombre VARCHAR(150) NOT NULL," +
+            "descripcion VARCHAR(255) DEFAULT ''," +
+            "cantidad INT NOT NULL DEFAULT 0," +
+            "precio DOUBLE NOT NULL)");
+
+        st.executeUpdate("CREATE TABLE IF NOT EXISTS ordenes (" +
+            "id_orden INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+            "id_tutor INT NOT NULL," +
+            "fecha_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP," +
+            "total DOUBLE NOT NULL," +
+            "FOREIGN KEY (id_tutor) REFERENCES tutor(id_tutor))");
+
+        st.executeUpdate("CREATE TABLE IF NOT EXISTS detalle_orden (" +
+            "id_detalle INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+            "id_orden INT NOT NULL," +
+            "id_producto INT NOT NULL," +
+            "cantidad INT NOT NULL," +
+            "precio_unitario DOUBLE NOT NULL," +
+            "FOREIGN KEY (id_orden) REFERENCES ordenes(id_orden) ON DELETE CASCADE," +
+            "FOREIGN KEY (id_producto) REFERENCES productos(id_producto))");
 
         st.close();
         con.close();
