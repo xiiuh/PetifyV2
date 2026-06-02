@@ -67,7 +67,11 @@
             "nombre VARCHAR(150) NOT NULL," +
             "descripcion VARCHAR(255) DEFAULT ''," +
             "cantidad INT NOT NULL DEFAULT 0," +
-            "precio DOUBLE NOT NULL)");
+            "precio DOUBLE NOT NULL," +
+            "imagen VARCHAR(255) DEFAULT NULL)");
+        try {
+            st.executeUpdate("ALTER TABLE productos ADD COLUMN imagen VARCHAR(255) DEFAULT NULL");
+        } catch (Exception ignored) {}
 
         st.executeUpdate("CREATE TABLE IF NOT EXISTS ordenes (" +
             "id_orden INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +

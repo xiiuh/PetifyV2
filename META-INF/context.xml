@@ -12,6 +12,13 @@
             maxIdle="10"
             maxWaitMillis="-1"/>
 
+  <Resources>
+    <PostResources className="org.apache.catalina.webresources.DirResourceSet"
+                   webAppMount="/img/productos"
+                   base="C:/petify_uploads/productos"
+                   internalPath="/"/>
+  </Resources>
+
   <Realm className="org.apache.catalina.realm.DataSourceRealm"
          dataSourceName="jdbc/petify"
          userTable="usuarios"

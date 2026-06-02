@@ -5,6 +5,17 @@
                              https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
 
+  <servlet>
+    <servlet-name>jsp</servlet-name>
+    <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
+    <multipart-config>
+      <max-file-size>5242880</max-file-size>
+      <max-request-size>10485760</max-request-size>
+      <file-size-threshold>0</file-size-threshold>
+    </multipart-config>
+  </servlet>
+
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Zona Tutor</web-resource-name>

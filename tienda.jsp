@@ -41,7 +41,7 @@
     }
 
     PreparedStatement ps = con.prepareStatement(
-        "SELECT id_producto, nombre, descripcion, cantidad, precio FROM productos WHERE cantidad > 0"
+        "SELECT id_producto, nombre, descripcion, cantidad, precio, imagen FROM productos WHERE cantidad > 0"
     );
     ResultSet rs = ps.executeQuery();
 %>
@@ -88,8 +88,14 @@
                 String desc   = rs.getString("descripcion");
                 int    stock  = rs.getInt("cantidad");
                 double precio = rs.getDouble("precio");
+                String img    = rs.getString("imagen");
         %>
             <div class="dash-card" style="display:flex;flex-direction:column;gap:.75rem;">
+                <% if (img != null && !img.isEmpty()) { %>
+                    <img src="${pageContext.request.contextPath}/img/productos/<%= img %>"
+                         alt="<%= nombre %>"
+                         style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:.25rem;"/>
+                <% } %>
                 <h3><%= nombre %></h3>
                 <% if (desc != null && !desc.isEmpty()) { %>
                     <p style="font-size:.85rem;color:var(--muted);margin:0;"><%= desc %></p>

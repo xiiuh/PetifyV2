@@ -63,7 +63,8 @@ CREATE TABLE IF NOT EXISTS productos (
     nombre      VARCHAR(150) NOT NULL,
     descripcion VARCHAR(255) DEFAULT '',
     cantidad    INT NOT NULL DEFAULT 0,
-    precio      DOUBLE NOT NULL
+    precio      DOUBLE NOT NULL,
+    imagen      VARCHAR(255) DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS ordenes (
