@@ -79,9 +79,13 @@
             "fecha_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP," +
             "total DOUBLE NOT NULL," +
             "metodo_pago VARCHAR(20) NOT NULL DEFAULT 'efectivo'," +
+            "estado ENUM('pendiente','confirmada','cancelada') NOT NULL DEFAULT 'pendiente'," +
             "FOREIGN KEY (id_tutor) REFERENCES tutor(id_tutor))");
         try {
             st.executeUpdate("ALTER TABLE ordenes ADD COLUMN metodo_pago VARCHAR(20) NOT NULL DEFAULT 'efectivo'");
+        } catch (Exception ignored) {}
+        try {
+            st.executeUpdate("ALTER TABLE ordenes ADD COLUMN estado ENUM('pendiente','confirmada','cancelada') NOT NULL DEFAULT 'pendiente'");
         } catch (Exception ignored) {}
 
         st.executeUpdate("CREATE TABLE IF NOT EXISTS detalle_orden (" +

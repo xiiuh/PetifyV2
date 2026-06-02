@@ -43,6 +43,14 @@
                 <h3>Gestión de Productos</h3>
                 <p>Registra, edita y elimina productos de la tienda</p>
             </a>
+            <a href="${pageContext.request.contextPath}/veterinario/ventasPendientes.jsp" class="dash-card">
+                <h3>Ventas Pendientes</h3>
+                <p>Revisa y confirma las órdenes pendientes de recogida</p>
+            </a>
+            <a href="${pageContext.request.contextPath}/veterinario/historialVentas.jsp" class="dash-card">
+                <h3>Historial de Ventas</h3>
+                <p>Registro completo de todas las ventas realizadas</p>
+            </a>
         </div>
     </div>
 </body>

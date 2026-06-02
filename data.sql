@@ -73,6 +73,7 @@ CREATE TABLE IF NOT EXISTS ordenes (
     fecha_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     total        DOUBLE NOT NULL,
     metodo_pago  VARCHAR(20) NOT NULL DEFAULT 'efectivo',
+    estado       ENUM('pendiente','confirmada','cancelada') NOT NULL DEFAULT 'pendiente',
     FOREIGN KEY (id_tutor) REFERENCES tutor(id_tutor)
 );
 

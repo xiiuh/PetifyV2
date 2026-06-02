@@ -58,6 +58,11 @@
                     <p>Consulta productos y gestiona tu carrito</p>
                 </a>
 
+                <a href="${pageContext.request.contextPath}/tutor/misOrdenes.jsp" class="dash-card">
+                    <h3>Mis Ordenes</h3>
+                    <p>Consulta el estado de tus compras y su historial</p>
+                </a>
+
             </div>
         </div>
     </body>
