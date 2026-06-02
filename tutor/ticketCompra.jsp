@@ -18,7 +18,7 @@
     Connection con = ds.getConnection();
 
     PreparedStatement ps = con.prepareStatement(
-        "SELECT o.id_orden, o.fecha_compra, o.total, t.nom_tutor " +
+        "SELECT o.id_orden, o.fecha_compra, o.total, o.metodo_pago, t.nom_tutor " +
         "FROM ordenes o JOIN tutor t ON o.id_tutor = t.id_tutor " +
         "WHERE o.id_orden = ? AND t.correo = ?");
     ps.setInt(1, idOrden);
@@ -31,9 +31,10 @@
         return;
     }
 
-    String fecha    = rs.getString("fecha_compra");
-    double total    = rs.getDouble("total");
-    String nomTutor = rs.getString("nom_tutor");
+    String fecha      = rs.getString("fecha_compra");
+    double total      = rs.getDouble("total");
+    String nomTutor   = rs.getString("nom_tutor");
+    String metodoPago = rs.getString("metodo_pago");
     rs.close(); ps.close();
 
     ps = con.prepareStatement(
@@ -130,8 +131,29 @@
                 </tfoot>
             </table>
 
-            <p style="text-align:center;margin-top:2rem;font-size:.85rem;color:var(--muted);">
-                Gracias por tu compra. ¡Cuida bien a tu mascota!
+            <div style="margin-top:1.8rem;border-radius:12px;padding:1rem 1.2rem;text-align:center;
+                        background:<%= "tarjeta".equals(metodoPago) ? "#e8f5e9" : "#fff8e1" %>;">
+                <% if ("tarjeta".equals(metodoPago)) { %>
+                    <p style="font-weight:700;color:#2e7d32;margin-bottom:.3rem;">
+                        Pago con tarjeta confirmado
+                    </p>
+                    <p style="font-size:.88rem;color:#388e3c;">
+                        Preséntate en tienda con este comprobante para recoger tu pedido.
+                    </p>
+                <% } else { %>
+                    <p style="font-weight:700;color:#f57f17;margin-bottom:.3rem;">
+                        Pago en efectivo al recoger
+                    </p>
+                    <p style="font-size:.88rem;color:#f57f17;">
+                        Debes pagar <strong>$<%= String.format("%.2f", total) %></strong>
+                        al recoger tu pedido en tienda. Presenta este comprobante.
+                    </p>
+                <% } %>
+            </div>
+
+            <p style="text-align:center;margin-top:1.2rem;font-size:.82rem;color:var(--muted);">
+                Método de pago: <strong><%= "tarjeta".equals(metodoPago) ? "Tarjeta" : "Efectivo" %></strong>
+                &nbsp;|&nbsp; Gracias por tu compra. ¡Cuida bien a tu mascota!
             </p>
         </div>
     </div>

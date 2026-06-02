@@ -72,6 +72,7 @@ CREATE TABLE IF NOT EXISTS ordenes (
     id_tutor     INT NOT NULL,
     fecha_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     total        DOUBLE NOT NULL,
+    metodo_pago  VARCHAR(20) NOT NULL DEFAULT 'efectivo',
     FOREIGN KEY (id_tutor) REFERENCES tutor(id_tutor)
 );
 

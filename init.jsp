@@ -78,7 +78,11 @@
             "id_tutor INT NOT NULL," +
             "fecha_compra DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP," +
             "total DOUBLE NOT NULL," +
+            "metodo_pago VARCHAR(20) NOT NULL DEFAULT 'efectivo'," +
             "FOREIGN KEY (id_tutor) REFERENCES tutor(id_tutor))");
+        try {
+            st.executeUpdate("ALTER TABLE ordenes ADD COLUMN metodo_pago VARCHAR(20) NOT NULL DEFAULT 'efectivo'");
+        } catch (Exception ignored) {}
 
         st.executeUpdate("CREATE TABLE IF NOT EXISTS detalle_orden (" +
             "id_detalle INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +

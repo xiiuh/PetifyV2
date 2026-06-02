@@ -35,6 +35,9 @@
     }
 
     if ("confirmar".equals(accion) && !carrito.isEmpty()) {
+        String metodoPago = request.getParameter("metodo_pago");
+        if (!"tarjeta".equals(metodoPago)) metodoPago = "efectivo";
+
         Context ctx2 = new InitialContext();
         DataSource ds2 = (DataSource) ctx2.lookup("java:comp/env/jdbc/petify");
         Connection con2 = ds2.getConnection();
@@ -72,10 +75,11 @@
                 con2.setAutoCommit(false);
 
                 ps2 = con2.prepareStatement(
-                    "INSERT INTO ordenes (id_tutor, total) VALUES (?, ?)",
+                    "INSERT INTO ordenes (id_tutor, total, metodo_pago) VALUES (?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
                 ps2.setInt(1, idTutor);
                 ps2.setDouble(2, total);
+                ps2.setString(3, metodoPago);
                 ps2.executeUpdate();
                 rs2 = ps2.getGeneratedKeys();
                 int idOrden = 0;
@@ -206,17 +210,52 @@
             </table>
         </div>
 
-        <div style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;">
-            <form method="post">
-                <input type="hidden" name="accion" value="cancelar"/>
-                <button type="submit" class="btn-del" style="padding:.7rem 1.5rem;">
-                    Cancelar compra
-                </button>
-            </form>
+        <div style="margin-top:1.8rem;">
+            <h3 style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:1rem;">
+                Método de pago
+            </h3>
             <form method="post">
                 <input type="hidden" name="accion" value="confirmar"/>
-                <button type="submit" class="btn-acceso" style="width:auto;padding:.7rem 2rem;">
-                    Confirmar compra
+                <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.4rem;">
+                    <label style="flex:1;min-width:180px;display:flex;align-items:flex-start;gap:.75rem;
+                                  background:var(--blue-pale);border:2px solid transparent;border-radius:12px;
+                                  padding:1rem;cursor:pointer;transition:border-color .2s;"
+                           onclick="this.style.borderColor='var(--blue-mid)';document.getElementById('lbl-tarjeta').style.borderColor='transparent';"
+                           id="lbl-efectivo">
+                        <input type="radio" name="metodo_pago" value="efectivo" checked
+                               style="margin-top:3px;accent-color:var(--blue-mid);"/>
+                        <div>
+                            <strong style="display:block;margin-bottom:.2rem;">Efectivo</strong>
+                            <span style="font-size:.82rem;color:var(--muted);">
+                                Paga el total al recoger tu pedido en tienda
+                            </span>
+                        </div>
+                    </label>
+                    <label style="flex:1;min-width:180px;display:flex;align-items:flex-start;gap:.75rem;
+                                  background:var(--blue-pale);border:2px solid transparent;border-radius:12px;
+                                  padding:1rem;cursor:pointer;transition:border-color .2s;"
+                           onclick="this.style.borderColor='var(--blue-mid)';document.getElementById('lbl-efectivo').style.borderColor='transparent';"
+                           id="lbl-tarjeta">
+                        <input type="radio" name="metodo_pago" value="tarjeta"
+                               style="margin-top:3px;accent-color:var(--blue-mid);"/>
+                        <div>
+                            <strong style="display:block;margin-bottom:.2rem;">Tarjeta</strong>
+                            <span style="font-size:.82rem;color:var(--muted);">
+                                Pago online — solo preséntate a recoger
+                            </span>
+                        </div>
+                    </label>
+                </div>
+                <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+                    <button type="submit" class="btn-acceso" style="width:auto;padding:.7rem 2rem;">
+                        Confirmar compra
+                    </button>
+                </div>
+            </form>
+            <form method="post" style="margin-top:.75rem;">
+                <input type="hidden" name="accion" value="cancelar"/>
+                <button type="submit" class="btn-del" style="padding:.5rem 1.2rem;font-size:.85rem;">
+                    Cancelar compra
                 </button>
             </form>
         </div>
