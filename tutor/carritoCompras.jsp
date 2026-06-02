@@ -18,6 +18,8 @@
 
     String accion = request.getParameter("accion");
     String errorCarrito = null;
+    if ("pago".equals(request.getParameter("error")))    errorCarrito = "El pago con tarjeta no fue aprobado. Intenta de nuevo.";
+    if ("proceso".equals(request.getParameter("error"))) errorCarrito = "Error al registrar la orden. Contacta a soporte.";
 
     if ("eliminar".equals(accion)) {
         String idStr = request.getParameter("id_producto");
@@ -37,6 +39,11 @@
     if ("confirmar".equals(accion) && !carrito.isEmpty()) {
         String metodoPago = request.getParameter("metodo_pago");
         if (!"tarjeta".equals(metodoPago)) metodoPago = "efectivo";
+
+        if ("tarjeta".equals(metodoPago)) {
+            response.sendRedirect(request.getContextPath() + "/tutor/pagoTarjeta.jsp");
+            return;
+        }
 
         Context ctx2 = new InitialContext();
         DataSource ds2 = (DataSource) ctx2.lookup("java:comp/env/jdbc/petify");
