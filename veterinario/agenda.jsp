@@ -15,7 +15,7 @@
         PreparedStatement ps = con.prepareStatement("SELECT nom_vete FROM veterinario WHERE correo = ?");
         ps.setString(1, correo);
         ResultSet rs = ps.executeQuery();
-        if (rs.next()) nomVete = rs.getString("nom_vete");
+        if (rs.next()) nomVete = rs.getString("nom_vete").replace("&","&amp;").replace("<","&lt;").replace(">","&gt;");
         rs.close(); ps.close(); con.close();
     } catch (Exception ignored) {}
 %>
@@ -50,6 +50,10 @@
             <a href="${pageContext.request.contextPath}/veterinario/historialVentas.jsp" class="dash-card">
                 <h3>Historial de Ventas</h3>
                 <p>Registro completo de todas las ventas realizadas</p>
+            </a>
+            <a href="${pageContext.request.contextPath}/veterinario/listarCitas.jsp" class="dash-card">
+                <h3>Gestión de Citas</h3>
+                <p>Agenda, consulta, modifica y cancela citas de pacientes</p>
             </a>
         </div>
     </div>

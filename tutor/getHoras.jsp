@@ -1,8 +1,11 @@
 <%@ page contentType="application/json;charset=UTF-8" %>
 <%@ page import="java.sql.*, javax.naming.*, javax.sql.*" %>
 <%
+    if (request.getUserPrincipal() == null) { out.print("[]"); return; }
+
     String fecha   = request.getParameter("fecha");
     String idVete  = request.getParameter("id_vete");
+    if (fecha == null || idVete == null) { out.print("[]"); return; }
 
     Context ctx = new javax.naming.InitialContext();
     DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petify");
