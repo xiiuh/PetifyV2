@@ -3,44 +3,253 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Petify - Conecta con tu Veterinario</title>
+  <title>Petify – Plataforma Veterinaria Integral</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body class="landing">
 
+  <!-- NAVBAR -->
   <nav class="landing-navbar">
-    <a href="#" class="landing-brand">Petify</a>
+    <a href="index.html" class="landing-brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2C9 2 7 4.5 7 7s2 5 5 5 5-2.5 5-5-2-5-5-5z"/>
+        <path d="M4 14c0-1.1.9-2 2-2h12a2 2 0 0 1 2 2v1c0 3.3-2.7 6-6 6H10c-3.3 0-6-2.7-6-6v-1z"/>
+        <circle cx="9" cy="9" r="1.5" fill="currentColor" stroke="none"/>
+        <circle cx="15" cy="9" r="1.5" fill="currentColor" stroke="none"/>
+      </svg>
+      Petify
+    </a>
     <ul class="landing-nav-links">
-      <li><a href="index.html">Inicio</a></li>
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#como-funciona">Cómo funciona</a></li>
       <li><a href="tienda.jsp">Tienda</a></li>
-      <li><a href="login.jsp">Registrar Cita</a></li>
-      <li><a href="#">Contáctanos</a></li>
     </ul>
     <div class="landing-auth">
-      <a href="login.jsp" class="btn-landing btn-landing-outline">Iniciar Sesión</a>
-      <a href="registroUsuario.html" class="btn-landing btn-landing-solid">Registrarte</a>
+      <a href="login.jsp" class="btn-ln-outline">Iniciar sesión</a>
+      <a href="registroUsuario.html" class="btn-ln-solid">Registrarte</a>
     </div>
   </nav>
 
-  <main class="hero-container" id="inicio">
-    <div class="hero-text">
-      <h1>Al cuidado de tu mascota con <span>Petify</span></h1>
-      <p>Ideal para organizar horarios, citas médicas o comprar insumos para tu mascota con tu veterinario de confianza.</p>
-      <a href="registroUsuario.html" class="btn-landing btn-landing-solid" style="padding: 15px 35px; font-size: 16px;">Comenzar ahora</a>
+  <!-- HERO -->
+  <section class="l-hero" id="inicio">
+    <div class="l-hero__text">
+      <p class="l-tag">+ PLATAFORMA VETERINARIA INTEGRAL</p>
+      <h1>Cuida a tu mascota<br>con <span>Petify</span></h1>
+      <p>Agenda citas veterinarias, gestiona el historial de salud de tus mascotas y adquiere los insumos que necesitan — todo desde un solo lugar.</p>
+      <div class="l-hero__cta">
+        <a href="registroUsuario.html" class="btn-orange">Comenzar gratis &rarr;</a>
+        <span class="l-hero__note">&#9733; Sin costo de inicio</span>
+      </div>
     </div>
-    <div class="hero-image">
-      <div class="hero-logo"></div>
+    <div class="l-hero__visual">
+      <div class="l-mockup">
+        <p class="l-mockup__label">Cita confirmada</p>
+        <div class="l-mockup__card">
+          <h3>Panel del Tutor</h3>
+          <p>Gestiona a tus mascotas, citas y compras desde un solo tablero.</p>
+          <div class="l-pet-row">
+            <div class="l-pet-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C9 2 7 4 7 6.5S9 11 12 11s5-2 5-4.5S15 2 12 2z"/><path d="M4 18c0-3 3-5 8-5s8 2 8 5"/></svg>
+            </div>
+            <div>
+              <strong>Max &mdash; Golden Retriever</strong>
+              <small>Próxima vacuna: Jun 15</small>
+            </div>
+            <span class="l-badge l-badge--green">Activo</span>
+          </div>
+          <div class="l-pet-row">
+            <div class="l-pet-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C9 2 7 4 7 6.5S9 11 12 11s5-2 5-4.5S15 2 12 2z"/><path d="M4 18c0-3 3-5 8-5s8 2 8 5"/></svg>
+            </div>
+            <div>
+              <strong>Luna &mdash; Siamés</strong>
+              <small>Cita pendiente</small>
+            </div>
+            <span class="l-badge l-badge--gold">Próx.</span>
+          </div>
+        </div>
+        <div class="l-store-tag">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Tienda disponible &middot; +40 productos
+        </div>
+      </div>
     </div>
-  </main>
+  </section>
 
-  <footer class="landing-footer">
-    <p>&copy; 2026 Petify. Todos los derechos reservados.</p>
-    <div class="landing-footer-links">
-      <a href="#privacidad">Política de Privacidad</a>
-      <a href="#terminos">Términos de Servicio</a>
+  <!-- STATS -->
+  <section class="l-stats">
+    <div class="l-stat">
+      <span class="l-stat__num">2,400+</span>
+      <span class="l-stat__label">MASCOTAS REGISTRADAS</span>
     </div>
+    <div class="l-stat-sep"></div>
+    <div class="l-stat">
+      <span class="l-stat__num">98%</span>
+      <span class="l-stat__label">SATISFACCIÓN</span>
+    </div>
+    <div class="l-stat-sep"></div>
+    <div class="l-stat">
+      <span class="l-stat__num">15+</span>
+      <span class="l-stat__label">VETERINARIOS ACTIVOS</span>
+    </div>
+    <div class="l-stat-sep"></div>
+    <div class="l-stat">
+      <span class="l-stat__num">24/7</span>
+      <span class="l-stat__label">ACCESO AL SISTEMA</span>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="l-services" id="servicios">
+    <p class="l-section-label">— LO QUE OFRECEMOS</p>
+    <h2>Todo lo que tu mascota necesita</h2>
+    <p class="l-section-sub">Desde agendar citas hasta revisar el historial médico — Petify simplifica el cuidado veterinario.</p>
+    <div class="l-services-grid">
+
+      <div class="l-service-card">
+        <div class="l-service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Citas en línea</h3>
+        <p>Agenda, edita o cancela citas con tu veterinario de confianza en segundos, sin llamadas ni esperas.</p>
+      </div>
+
+      <div class="l-service-card">
+        <div class="l-service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/></svg>
+        </div>
+        <h3>Gestión de mascotas</h3>
+        <p>Registra múltiples mascotas con su historial completo: vacunas, consultas, tratamientos y más.</p>
+      </div>
+
+      <div class="l-service-card">
+        <div class="l-service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        </div>
+        <h3>Tienda integrada</h3>
+        <p>Compra alimento, medicamentos y accesorios directamente en la plataforma con entrega rápida.</p>
+      </div>
+
+      <div class="l-service-card">
+        <div class="l-service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3>Historial clínico</h3>
+        <p>Accede en todo momento al historial médico completo de tus mascotas, siempre actualizado.</p>
+      </div>
+
+      <div class="l-service-card">
+        <div class="l-service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <h3>Recordatorios</h3>
+        <p>Recibe avisos de vacunas, desparasitaciones y próximas citas para no perderte nada importante.</p>
+      </div>
+
+      <div class="l-service-card">
+        <div class="l-service-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+        </div>
+        <h3>Seguimiento de órdenes</h3>
+        <p>Consulta el estado de tus compras y revisa el historial de todas tus transacciones.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="l-how" id="como-funciona">
+    <div class="l-how__content">
+      <p class="l-section-label">— PROCESO SIMPLE</p>
+      <h2>Empieza en<br>3 pasos</h2>
+      <div class="l-steps">
+        <div class="l-step">
+          <div class="l-step__num">1</div>
+          <div>
+            <strong>Crea tu cuenta</strong>
+            <p>Regístrate gratis con tu correo. Solo toma un minuto y no necesitas tarjeta.</p>
+          </div>
+        </div>
+        <div class="l-step">
+          <div class="l-step__num">2</div>
+          <div>
+            <strong>Registra a tus mascotas</strong>
+            <p>Agrega el perfil de cada mascota con sus datos básicos de salud e historial.</p>
+          </div>
+        </div>
+        <div class="l-step">
+          <div class="l-step__num">3</div>
+          <div>
+            <strong>Agenda y gestiona</strong>
+            <p>Reserva citas, compra productos y accede a todo el historial desde tu dashboard.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="l-how__visual">
+      <div class="l-mockup l-mockup--how">
+        <div class="l-mock-bar">
+          <span class="l-dot l-dot--r"></span>
+          <span class="l-dot l-dot--y"></span>
+          <span class="l-dot l-dot--g"></span>
+          <span class="l-mock-url">petify.app / tutor / dashboard</span>
+        </div>
+        <div class="l-mock-body">
+          <p class="l-mock-welcome">Bienvenida, Sofía</p>
+          <p class="l-mock-sub">Selecciona una opción para continuar</p>
+          <div class="l-mock-grid">
+            <div class="l-mock-item">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg>
+              Mis Mascotas
+              <small>Consulta y gestiona tus mascotas</small>
+            </div>
+            <div class="l-mock-item">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Mis Citas
+              <small>Agenda o cancela citas</small>
+            </div>
+            <div class="l-mock-item">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              Tienda
+              <small>Consulta productos</small>
+            </div>
+            <div class="l-mock-item">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+              Mis Órdenes
+              <small>Estado de compras</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="l-cta">
+    <h2>¿Listo para cuidar mejor a tu mascota?</h2>
+    <p>Únete a miles de tutores que ya confían en Petify para el bienestar de sus compañeros.</p>
+    <div class="l-cta__btns">
+      <a href="registroUsuario.html" class="btn-ln-solid-light">Crear cuenta gratis</a>
+      <a href="login.jsp" class="btn-ln-outline-light">Iniciar sesión</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="l-footer">
+    <div class="l-footer__brand">
+      <span>Petify</span>
+      <small>&copy; 2026 Todos los derechos reservados.</small>
+    </div>
+    <div class="l-footer__links">
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#">Política de Privacidad</a>
+      <a href="#">Términos de Servicio</a>
+    </div>
+    <span class="l-footer__tagline">Hecho con &hearts; para tus mascotas</span>
   </footer>
 
 </body>
