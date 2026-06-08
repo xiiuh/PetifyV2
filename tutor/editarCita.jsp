@@ -140,7 +140,7 @@
                     int id = rs.getInt("id_vete");
               %>
               <option value="<%= id %>" <%= id == idVeteActual ? "selected" : "" %>>
-                <%= rs.getString("nom_vete") %> — <%= rs.getString("especialidad") %>
+                <%= esc(rs.getString("nom_vete")) %> — <%= esc(rs.getString("especialidad")) %>
               </option>
               <% } rs.close(); ps.close(); %>
             </select>
@@ -159,7 +159,7 @@
                     int id = rs.getInt("id_mascota");
               %>
               <option value="<%= id %>" <%= id == idMascotaActual ? "selected" : "" %>>
-                <%= rs.getString("nombre") %>
+                <%= esc(rs.getString("nombre")) %>
               </option>
               <% } rs.close(); ps.close(); %>
             </select>

@@ -37,7 +37,7 @@
 
   <div class="topbar">
     <span class="logo">PETIFY</span>
-    <span class="user-welcome">Hola, <%= nomTutor %></span>
+    <span class="user-welcome">Hola, <%= esc(nomTutor) %></span>
     <a href="../logout.jsp" class="btn-logout">Cerrar sesión</a>
   </div>
 
@@ -60,7 +60,7 @@
               while (rs.next()) {
             %>
               <option value="<%= rs.getInt("id_vete") %>">
-                <%= rs.getString("nom_vete") %> — <%= rs.getString("especialidad") %>
+                <%= esc(rs.getString("nom_vete")) %> — <%= esc(rs.getString("especialidad")) %>
               </option>
             <%
               }
@@ -81,7 +81,7 @@
               while (rs.next()) {
             %>
               <option value="<%= rs.getInt("id_mascota") %>">
-                <%= rs.getString("nombre") %>
+                <%= esc(rs.getString("nombre")) %>
               </option>
             <%
               }

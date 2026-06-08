@@ -9,8 +9,8 @@ let selectedTime = "";
 
 // Lista base de horarios de la clínica (Ajusta los horarios según lo necesites)
 const hours = [
-    "09:00:00", "10:00:00", "11:00:00", "12:00:00", 
-    "13:00:00", "15:00:00", "16:00:00", "17:00:00"
+    "09:00:00", "10:00:00", "11:00:00", "12:00:00",
+    "13:00:00", "16:00:00", "17:00:00", "18:00:00"
 ];
 
 // Escuchar los cambios en el input de fecha (si usas el tipo date del JSP anterior)
@@ -48,7 +48,7 @@ function loadHours() {
                 }
 
                 btn.onclick = () => {
-                    selectedTime = hour; // Guardamos el formato completo para la BD
+                    selectedTime = hour.substring(0, 5); // Enviamos "HH:mm" que es lo que valida el servidor
                     if (selectedTimeSpan) selectedTimeSpan.textContent = hour.substring(0, 5);
                     
                     document.querySelectorAll("#time-buttons button")

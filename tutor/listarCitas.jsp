@@ -75,8 +75,8 @@
               hayCitas = true;
         %>
         <tr>
-          <td><%= rs.getString("mascota") %></td>
-          <td><%= rs.getString("veterinario") %></td>
+          <td><%= esc(rs.getString("mascota")) %></td>
+          <td><%= esc(rs.getString("veterinario")) %></td>
           <td><%= rs.getString("fecha") %></td>
           <td><%= rs.getString("hora") %></td>
           <td>
