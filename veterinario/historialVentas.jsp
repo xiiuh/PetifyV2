@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.sql.*, javax.naming.*, javax.sql.*" %>
+<%! private static String esc(String s) { if(s==null)return""; return s.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;").replace("'","&#x27;"); } %>
 <%
     if (request.getUserPrincipal() == null) {
         response.sendRedirect(request.getContextPath() + "/login.jsp");
@@ -121,8 +122,8 @@
                 <tr>
                     <td><strong>#<%= idOrden %></strong></td>
                     <td>
-                        <strong><%= nomTutor %></strong><br>
-                        <span style="font-size:.8rem;color:var(--muted);"><%= correoT %></span>
+                        <strong><%= esc(nomTutor) %></strong><br>
+                        <span style="font-size:.8rem;color:var(--muted);"><%= esc(correoT) %></span>
                     </td>
                     <td style="font-size:.85rem;"><%= fecha %></td>
                     <td><strong>$<%= String.format("%.2f", total) %></strong></td>
@@ -138,7 +139,7 @@
                                     while (rsDet.next()) {
                                 %>
                                     <tr>
-                                        <td><%= rsDet.getString("nombre") %></td>
+                                        <td><%= esc(rsDet.getString("nombre")) %></td>
                                         <td><%= rsDet.getInt("cantidad") %></td>
                                         <td>$<%= String.format("%.2f", rsDet.getDouble("precio_unitario")) %></td>
                                     </tr>

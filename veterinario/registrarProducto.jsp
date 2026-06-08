@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="java.sql.*, javax.naming.*, javax.sql.*, javax.servlet.http.*, java.io.*, java.nio.file.*" %>
+<%@ page import="java.sql.*, javax.naming.*, javax.sql.*, javax.servlet.http.*, java.io.*, java.nio.file.*, java.util.UUID, java.util.Set, java.util.HashSet, java.util.Arrays" %>
 <%
     if (request.getUserPrincipal() == null) {
         response.sendRedirect(request.getContextPath() + "/login.jsp");
@@ -22,9 +22,11 @@
             Part filePart = request.getPart("imagen");
             if (filePart != null && filePart.getSize() > 0) {
                 String submitted = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                String ext = submitted.contains(".") ? submitted.substring(submitted.lastIndexOf('.')) : "";
-                imagenNombre = System.currentTimeMillis() + ext;
-                String uploadDir = "C:/petify_uploads/productos";
+                String ext = submitted.contains(".") ? submitted.substring(submitted.lastIndexOf('.')).toLowerCase() : "";
+                Set<String> extsPermitidas = new HashSet<>(Arrays.asList(".jpg",".jpeg",".png",".gif",".webp"));
+                if (!extsPermitidas.contains(ext)) throw new Exception("Tipo de archivo no permitido.");
+                imagenNombre = UUID.randomUUID().toString() + ext;
+                String uploadDir = "/opt/petify_uploads/productos";
                 new File(uploadDir).mkdirs();
                 filePart.write(uploadDir + File.separator + imagenNombre);
             }
@@ -45,7 +47,8 @@
             response.sendRedirect(request.getContextPath() + "/veterinario/productos.jsp?ok=1");
             return;
         } catch (Exception e) {
-            error = "Error al registrar: " + e.getMessage();
+            error = e.getMessage().startsWith("Tipo de archivo") ? e.getMessage() : "Error al registrar el producto. Intenta de nuevo.";
+            System.err.println("[registrarProducto] " + e);
         }
     }
 %>

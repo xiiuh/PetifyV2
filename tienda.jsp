@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.sql.*, javax.naming.*, javax.sql.*, java.util.*" %>
+<%! private static String esc(String s) { if(s==null)return""; return s.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;").replace("'","&#x27;"); } %>
 <%
     boolean loggedIn = request.getUserPrincipal() != null;
     String correo    = loggedIn ? request.getUserPrincipal().getName() : null;
@@ -59,7 +60,7 @@
     <div class="topbar">
         <span class="logo">PETIFY</span>
         <% if (loggedIn) { %>
-            <span class="user-welcome">Hola, <%= nomTutor %></span>
+            <span class="user-welcome">Hola, <%= esc(nomTutor) %></span>
             <a href="${pageContext.request.contextPath}/tutor/carritoCompras.jsp"
                class="btn-acceso"
                style="display:inline-block;width:auto;padding:.6rem 1.4rem;text-decoration:none;">
@@ -92,13 +93,13 @@
         %>
             <div class="dash-card" style="display:flex;flex-direction:column;gap:.75rem;">
                 <% if (img != null && !img.isEmpty()) { %>
-                    <img src="${pageContext.request.contextPath}/img/productos/<%= img %>"
-                         alt="<%= nombre %>"
+                    <img src="${pageContext.request.contextPath}/img/productos/<%= esc(img) %>"
+                         alt="<%= esc(nombre) %>"
                          style="width:100%;height:160px;object-fit:cover;border-radius:10px;margin-bottom:.25rem;"/>
                 <% } %>
-                <h3><%= nombre %></h3>
+                <h3><%= esc(nombre) %></h3>
                 <% if (desc != null && !desc.isEmpty()) { %>
-                    <p style="font-size:.85rem;color:var(--muted);margin:0;"><%= desc %></p>
+                    <p style="font-size:.85rem;color:var(--muted);margin:0;"><%= esc(desc) %></p>
                 <% } %>
                 <p style="font-size:1.1rem;font-weight:700;margin:0;">$<%= String.format("%.2f", precio) %></p>
                 <p style="font-size:.8rem;color:var(--muted);margin:0;">Stock: <%= stock %></p>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.sql.*, javax.naming.*, javax.sql.*" %>
+<%! private static String esc(String s) { if(s==null)return""; return s.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;").replace("'","&#x27;"); } %>
 <%
     if (request.getUserPrincipal() == null) {
         response.sendRedirect(request.getContextPath() + "/login.jsp");
@@ -87,8 +88,8 @@
 
             <div style="display:flex;justify-content:space-between;margin-bottom:1.5rem;font-size:.9rem;flex-wrap:wrap;gap:.5rem;">
                 <div>
-                    <strong>Cliente:</strong> <%= nomTutor %><br>
-                    <strong>Correo:</strong> <%= correo %>
+                    <strong>Cliente:</strong> <%= esc(nomTutor) %><br>
+                    <strong>Correo:</strong> <%= esc(correo) %>
                 </div>
                 <div style="text-align:right;">
                     <strong>Fecha:</strong><br><%= fecha %>
@@ -113,7 +114,7 @@
                         double sub     = precioU * cant;
                 %>
                     <tr>
-                        <td><%= nombre %></td>
+                        <td><%= esc(nombre) %></td>
                         <td>$<%= String.format("%.2f", precioU) %></td>
                         <td><%= cant %></td>
                         <td>$<%= String.format("%.2f", sub) %></td>

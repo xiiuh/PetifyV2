@@ -1,14 +1,14 @@
-<%@ page import="java.sql.*" contentType="text/html;charset=UTF-8" %>
+<%@ page import="java.sql.*" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/?useSSL=false&allowPublicKeyRetrieval=true",
+            "jdbc:mysql://localhost:3306/?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8",
             "root", "n0m3l0"
         );
         Statement st = con.createStatement();
 
-        st.executeUpdate("CREATE DATABASE IF NOT EXISTS petify");
+        st.executeUpdate("CREATE DATABASE IF NOT EXISTS petify CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
         st.executeUpdate("USE petify");
 
         st.executeUpdate("CREATE TABLE IF NOT EXISTS usuarios (" +

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.sql.*, javax.naming.*, javax.sql.*" %>
+<%! private static String esc(String s) { if(s==null)return""; return s.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;").replace("'","&#x27;"); } %>
 <%
     if (request.getUserPrincipal() == null) {
         response.sendRedirect(request.getContextPath() + "/login.jsp");
@@ -98,9 +99,9 @@
                             Método: <strong><%= "tarjeta".equals(metodo) ? "Tarjeta" : "Efectivo" %></strong>
                         </div>
                         <div style="margin-top:.5rem;font-size:.92rem;">
-                            <strong><%= nomTutor %></strong>
-                            &nbsp;|&nbsp; <%= correoT %>
-                            &nbsp;|&nbsp; <%= telefonoT %>
+                            <strong><%= esc(nomTutor) %></strong>
+                            &nbsp;|&nbsp; <%= esc(correoT) %>
+                            &nbsp;|&nbsp; <%= esc(telefonoT) %>
                         </div>
                         <details style="margin-top:.6rem;">
                             <summary>Ver productos</summary>
@@ -116,7 +117,7 @@
                                         double precioU  = rsDet.getDouble("precio_unitario");
                                 %>
                                     <tr>
-                                        <td><%= nomProd %></td>
+                                        <td><%= esc(nomProd) %></td>
                                         <td><%= cantProd %></td>
                                         <td>$<%= String.format("%.2f", precioU) %></td>
                                         <td>$<%= String.format("%.2f", precioU * cantProd) %></td>

@@ -1,4 +1,5 @@
 <%@ page import="java.sql.*, javax.naming.*, javax.sql.*" %>
+<%! private static String esc(String s) { if(s==null)return""; return s.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;").replace("'","&#x27;"); } %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
     if (request.getUserPrincipal() == null) {
@@ -127,13 +128,13 @@
                     <div class="form-group">
                         <label>Nombre</label>
                         <div class="input-wrap">
-                            <input type="text" name="nombre" required value="<%= nombre %>"/>
+                            <input type="text" name="nombre" required value="<%= esc(nombre) %>"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Especie</label>
                         <div class="input-wrap">
-                            <input type="text" name="especie" required value="<%= especie %>"/>
+                            <input type="text" name="especie" required value="<%= esc(especie) %>"/>
                         </div>
                     </div>
                 </div>
@@ -142,13 +143,13 @@
                     <div class="form-group">
                         <label>Raza</label>
                         <div class="input-wrap">
-                            <input type="text" name="raza" required value="<%= raza %>"/>
+                            <input type="text" name="raza" required value="<%= esc(raza) %>"/>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Edad</label>
                         <div class="input-wrap">
-                            <input type="text" name="edad" required value="<%= edad %>"/>
+                            <input type="text" name="edad" required value="<%= esc(edad) %>"/>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.sql.*, javax.naming.*, javax.sql.*" %>
+<%! private static String esc(String s) { if(s==null)return""; return s.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;").replace("'","&#x27;"); } %>
 <%
     if (request.getUserPrincipal() == null) {
         response.sendRedirect(request.getContextPath() + "/login.jsp");
@@ -74,15 +75,15 @@
                 <tr>
                     <td>
                         <% if (img != null && !img.isEmpty()) { %>
-                            <img src="${pageContext.request.contextPath}/img/productos/<%= img %>"
-                                 alt="<%= nom %>"
+                            <img src="${pageContext.request.contextPath}/img/productos/<%= esc(img) %>"
+                                 alt="<%= esc(nom) %>"
                                  style="width:54px;height:54px;object-fit:cover;border-radius:8px;"/>
                         <% } else { %>
                             <span style="color:var(--muted);font-size:.8rem;">Sin imagen</span>
                         <% } %>
                     </td>
-                    <td><strong><%= nom %></strong></td>
-                    <td style="font-size:.85rem;color:var(--muted);max-width:200px;"><%= desc != null ? desc : "" %></td>
+                    <td><strong><%= esc(nom) %></strong></td>
+                    <td style="font-size:.85rem;color:var(--muted);max-width:200px;"><%= esc(desc) %></td>
                     <td>$<%= String.format("%.2f", precio) %></td>
                     <td><%= cant %></td>
                     <td>

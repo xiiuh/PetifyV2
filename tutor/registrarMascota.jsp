@@ -65,7 +65,8 @@
         } catch (NumberFormatException nfe) {
             error = "El peso debe ser un número válido.";
         } catch (Exception e) {
-            error = e.getMessage();
+            error = "Error interno al registrar la mascota.";
+            System.err.println("[registrarMascota] " + e);
         }
     }
 }

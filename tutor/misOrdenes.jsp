@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="java.sql.*, javax.naming.*, javax.sql.*" %>
+<%! private static String esc(String s) { if(s==null)return""; return s.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;").replace("'","&#x27;"); } %>
 <%
     if (request.getUserPrincipal() == null) {
         response.sendRedirect(request.getContextPath() + "/login.jsp");
@@ -107,7 +108,7 @@
                                         int    c  = rsDet.getInt("cantidad");
                                 %>
                                     <tr>
-                                        <td><%= rsDet.getString("nombre") %></td>
+                                        <td><%= esc(rsDet.getString("nombre")) %></td>
                                         <td><%= c %></td>
                                         <td>$<%= String.format("%.2f", pu) %></td>
                                         <td>$<%= String.format("%.2f", pu * c) %></td>

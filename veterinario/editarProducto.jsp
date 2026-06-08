@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="java.sql.*, javax.naming.*, javax.sql.*, javax.servlet.http.*, java.io.*, java.nio.file.*" %>
+<%@ page import="java.sql.*, javax.naming.*, javax.sql.*, javax.servlet.http.*, java.io.*, java.nio.file.*, java.util.UUID, java.util.Set, java.util.HashSet, java.util.Arrays" %>
+<%! private static String esc(String s) { if(s==null)return""; return s.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;").replace("\"","&quot;").replace("'","&#x27;"); } %>
 <%
     if (request.getUserPrincipal() == null) {
         response.sendRedirect(request.getContextPath() + "/login.jsp");
@@ -31,9 +32,11 @@
             Part filePart = request.getPart("imagen");
             if (filePart != null && filePart.getSize() > 0) {
                 String submitted = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-                String ext = submitted.contains(".") ? submitted.substring(submitted.lastIndexOf('.')) : "";
-                String imagenNombre = System.currentTimeMillis() + ext;
-                String uploadDir = "C:/petify_uploads/productos";
+                String ext = submitted.contains(".") ? submitted.substring(submitted.lastIndexOf('.')).toLowerCase() : "";
+                Set<String> extsPermitidas = new HashSet<>(Arrays.asList(".jpg",".jpeg",".png",".gif",".webp"));
+                if (!extsPermitidas.contains(ext)) throw new Exception("Tipo de archivo no permitido.");
+                String imagenNombre = UUID.randomUUID().toString() + ext;
+                String uploadDir = "/opt/petify_uploads/productos";
                 new File(uploadDir).mkdirs();
                 filePart.write(uploadDir + File.separator + imagenNombre);
 
@@ -55,7 +58,8 @@
             response.sendRedirect(request.getContextPath() + "/veterinario/productos.jsp?ok=2");
             return;
         } catch (Exception e) {
-            error = "Error al actualizar: " + e.getMessage();
+            error = e.getMessage().startsWith("Tipo de archivo") ? e.getMessage() : "Error al actualizar el producto. Intenta de nuevo.";
+            System.err.println("[editarProducto] " + e);
         }
     }
 
@@ -108,7 +112,7 @@
                 <div class="form-group">
                     <label>Nombre <span class="required">*</span></label>
                     <div class="input-wrap">
-                        <input type="text" name="nombre" required value="<%= pNombre %>"/>
+                        <input type="text" name="nombre" required value="<%= esc(pNombre) %>"/>
                     </div>
                 </div>
 
@@ -117,7 +121,7 @@
                     <textarea name="descripcion" rows="3"
                               style="width:100%;background:var(--blue-pale);border:2px solid transparent;
                                      border-radius:12px;padding:11px 16px;font-family:'DM Sans',sans-serif;
-                                     font-size:.94rem;color:var(--text);outline:none;resize:vertical;"><%= pDescripcion != null ? pDescripcion : "" %></textarea>
+                                     font-size:.94rem;color:var(--text);outline:none;resize:vertical;"><%= esc(pDescripcion) %></textarea>
                 </div>
 
                 <div class="form-row" style="margin-top:.9rem;">

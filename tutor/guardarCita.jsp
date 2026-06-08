@@ -60,6 +60,7 @@
         out.print("OK");
 
     } catch (Exception e) {
-        out.print("SQL_ERROR: " + e.getMessage());
+        System.err.println("[guardarCita] " + e);
+        out.print("SQL_ERROR");
     }
 %>
