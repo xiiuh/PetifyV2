@@ -56,7 +56,7 @@
 
 <div class="topbar">
 
-    <span class="logo">PETIFY</span>
+    <a href="${pageContext.request.contextPath}/veterinario/agenda.jsp" class="logo">PETIFY</a>
 
     <span class="user-welcome">
         Dr. <%= esc(nomVete) %>

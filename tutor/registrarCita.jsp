@@ -36,7 +36,7 @@
 <body class="dashboard">
 
   <div class="topbar">
-    <span class="logo">PETIFY</span>
+    <a href="${pageContext.request.contextPath}/tutor/dashboard.jsp" class="logo">PETIFY</a>
     <span class="user-welcome">Hola, <%= esc(nomTutor) %></span>
     <a href="../logout.jsp" class="btn-logout">Cerrar sesión</a>
   </div>

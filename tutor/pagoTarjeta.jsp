@@ -99,7 +99,7 @@
 </head>
 <body class="dashboard">
     <div class="topbar">
-        <span class="logo">PETIFY</span>
+        <a href="${pageContext.request.contextPath}/tutor/dashboard.jsp" class="logo">PETIFY</a>
         <a href="${pageContext.request.contextPath}/logout.jsp" class="btn-logout">Cerrar sesión</a>
     </div>
     <div class="main-content">

@@ -144,7 +144,7 @@
 <body class="dashboard">
 
     <div class="topbar">
-        <span class="logo">PETIFY</span>
+        <a href="${pageContext.request.contextPath}/tutor/dashboard.jsp" class="logo">PETIFY</a>
         <a href="${pageContext.request.contextPath}/logout.jsp" class="btn-logout">Cerrar sesión</a>
     </div>
 
@@ -254,11 +254,33 @@
                     </label>
                 </div>
                 <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-                    <button type="submit" class="btn-acceso" style="width:auto;padding:.7rem 2rem;">
+                    <button type="button" class="btn-acceso" style="width:auto;padding:.7rem 2rem;"
+                            onclick="confirmarCompra(this.closest('form'))">
                         Confirmar compra
                     </button>
                 </div>
             </form>
+
+            <div id="stripe-banner" style="display:none;margin-top:1.2rem;padding:1rem 1.2rem;
+                 background:#e8f0f5;border-radius:12px;font-size:.9rem;color:var(--text);line-height:1.5;">
+                El pago se abrió en una nueva pestaña. Complétalo allí y regresa cuando termines.<br>
+                <a href="${pageContext.request.contextPath}/tutor/misOrdenes.jsp"
+                   style="color:var(--blue-mid);font-weight:600;text-decoration:none;">
+                    Ver mis órdenes →
+                </a>
+            </div>
+
+            <script>
+            function confirmarCompra(form) {
+                const metodo = form.querySelector('input[name="metodo_pago"]:checked').value;
+                if (metodo === 'tarjeta') {
+                    window.open('${pageContext.request.contextPath}/tutor/pagoTarjeta.jsp', '_blank');
+                    document.getElementById('stripe-banner').style.display = 'block';
+                } else {
+                    form.submit();
+                }
+            }
+            </script>
             <form method="post" style="margin-top:.75rem;">
                 <input type="hidden" name="accion" value="cancelar"/>
                 <button type="submit" class="btn-del" style="padding:.5rem 1.2rem;font-size:.85rem;">

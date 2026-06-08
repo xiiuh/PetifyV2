@@ -58,7 +58,11 @@
 <body class="dashboard">
 
     <div class="topbar">
-        <span class="logo">PETIFY</span>
+        <% if (loggedIn) { %>
+        <a href="${pageContext.request.contextPath}/tutor/dashboard.jsp" class="logo">PETIFY</a>
+        <% } else { %>
+        <a href="${pageContext.request.contextPath}/index.html" class="logo">PETIFY</a>
+        <% } %>
         <% if (loggedIn) { %>
             <span class="user-welcome">Hola, <%= esc(nomTutor) %></span>
             <a href="${pageContext.request.contextPath}/tutor/carritoCompras.jsp"
