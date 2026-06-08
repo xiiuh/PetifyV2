@@ -552,6 +552,7 @@ body.landing {
   flex-direction: column;
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-y: auto;
   align-items: unset;
   justify-content: unset;
 }

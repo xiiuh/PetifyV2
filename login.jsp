@@ -25,7 +25,7 @@
   <main class="wrapper">
     <div class="logo-block">
       <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
-        <rect width="80" height="80" rx="18" fill="#2a5476"/>
+        <rect width="80" height="80" rx="18" fill="#1a3d35"/>
         <ellipse cx="40" cy="50" rx="13" ry="11" fill="rgba(255,255,255,.9)"/>
         <ellipse cx="26" cy="37" rx="7"  ry="9"  fill="rgba(255,255,255,.9)"/>
         <ellipse cx="38" cy="32" rx="7"  ry="9"  fill="rgba(255,255,255,.9)"/>
