@@ -94,7 +94,10 @@
         out.print("ok");
 
     } catch (Exception e) {
-        response.setStatus(500);
-        out.print("server_error");
-    }
+    response.setStatus(500);
+    System.err.println("[registroUsuario] " + e.getMessage());
+    e.printStackTrace();
+    out.print("server_error");
+}
+
 %>
