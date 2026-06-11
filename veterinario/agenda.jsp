@@ -55,6 +55,10 @@
                 <h3>Gestión de Citas</h3>
                 <p>Agenda, consulta, modifica y cancela citas de pacientes</p>
             </a>
+            <a href="${pageContext.request.contextPath}/veterinario/expedientes.jsp" class="dash-card">
+                <h3>Expedientes Clínicos</h3>
+                <p>Registra y consulta el historial de consultas de cada paciente</p>
+            </a>
         </div>
     </div>
 </body>

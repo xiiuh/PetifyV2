@@ -63,6 +63,11 @@
                     <p>Consulta el estado de tus compras y su historial</p>
                 </a>
 
+                <a href="${pageContext.request.contextPath}/tutor/historialClinico.jsp" class="dash-card">
+                    <h3>Historial Clínico</h3>
+                    <p>Consulta las visitas y diagnósticos de tus mascotas</p>
+                </a>
+
             </div>
         </div>
     </body>

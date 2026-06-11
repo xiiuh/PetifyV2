@@ -97,6 +97,21 @@
             "FOREIGN KEY (id_orden) REFERENCES ordenes(id_orden) ON DELETE CASCADE," +
             "FOREIGN KEY (id_producto) REFERENCES productos(id_producto))");
 
+        st.executeUpdate("CREATE TABLE IF NOT EXISTS consultas (" +
+            "id_consulta INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
+            "id_mascota INT NOT NULL," +
+            "id_vete INT NOT NULL," +
+            "fecha_consulta DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP," +
+            "motivo VARCHAR(50) NOT NULL," +
+            "motivo_otro VARCHAR(150) DEFAULT NULL," +
+            "peso DECIMAL(5,2) DEFAULT NULL," +
+            "diagnostico TEXT," +
+            "tratamiento TEXT," +
+            "medicamentos TEXT," +
+            "observaciones TEXT," +
+            "FOREIGN KEY (id_mascota) REFERENCES mascota(id_mascota)," +
+            "FOREIGN KEY (id_vete) REFERENCES veterinario(id_vete))");
+
         st.close();
         con.close();
 
