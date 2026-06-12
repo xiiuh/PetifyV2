@@ -40,7 +40,11 @@
       <h2 class="card-title">Iniciar sesión</h2>
       <p class="card-sub">Bienvenido de nuevo</p>
 
-      <% if ("1".equals(request.getParameter("error"))) { %>
+      <% if ("bloqueado".equals(request.getParameter("error"))) { %>
+        <p class="error-msg" style="text-align:center; margin-bottom:12px;">
+          Demasiados intentos fallidos. Intenta en <%= request.getParameter("min") %> minuto(s).
+        </p>
+      <% } else if ("1".equals(request.getParameter("error"))) { %>
         <p class="error-msg" style="text-align:center; margin-bottom:12px;">
           Correo o contraseña incorrectos
         </p>

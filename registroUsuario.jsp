@@ -44,6 +44,25 @@
         return;
     }
 
+    java.util.Set<String> dominiosPermitidos = new java.util.HashSet<>(java.util.Arrays.asList(
+        "gmail.com",
+        "hotmail.com","hotmail.es","hotmail.com.mx",
+        "outlook.com","outlook.es","outlook.com.mx",
+        "yahoo.com","yahoo.es","yahoo.com.mx",
+        "icloud.com","me.com",
+        "live.com","live.com.mx","live.es",
+        "msn.com",
+        "protonmail.com","proton.me",
+        "aol.com",
+        "petify.com"
+    ));
+    String dominio = email.substring(email.indexOf('@') + 1).toLowerCase();
+    if (!dominiosPermitidos.contains(dominio)) {
+        response.setStatus(400);
+        out.print("invalid_domain");
+        return;
+    }
+
     String passHash = hashPassword(contra);
 
     try {

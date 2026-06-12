@@ -11,10 +11,30 @@ function clearError(id) {
   err(id).textContent = "";
 }
 
+const dominiosPermitidos = new Set([
+  "gmail.com",
+  "hotmail.com","hotmail.es","hotmail.com.mx",
+  "outlook.com","outlook.es","outlook.com.mx",
+  "yahoo.com","yahoo.es","yahoo.com.mx",
+  "icloud.com","me.com",
+  "live.com","live.com.mx","live.es",
+  "msn.com",
+  "protonmail.com","proton.me",
+  "aol.com",
+  "petify.com"
+]);
+
+function validarCorreo(v) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "Correo no válido.";
+  const dominio = v.split("@")[1].toLowerCase();
+  if (!dominiosPermitidos.has(dominio)) return "Usa un proveedor de correo conocido (Gmail, Hotmail, Outlook, Yahoo…).";
+  return null;
+}
+
 const rules = {
   nombre:    v => v.length >= 2 ? null : "Mínimo 2 caracteres.",
   apellidos: v => v.length >= 2 ? null : "Mínimo 2 caracteres.",
-  correo:    v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? null : "Correo no válido.",
+  correo:    v => validarCorreo(v),
   telefono:  v => /^\d{10}$/.test(v) ? null : "Debe tener exactamente 10 dígitos.",
   password:  v => v.length >= 6 ? null : "Mínimo 6 caracteres.",
   confirm:   v => v === get("password").value ? null : "Las contraseñas no coinciden.",
@@ -61,6 +81,8 @@ get("btn-register").addEventListener("click", async () => {
       const text = await res.text();
       if (text.includes("email_exists")) {
         setError("correo", "Este correo ya está registrado.");
+      } else if (text.includes("invalid_domain")) {
+        setError("correo", "Usa un proveedor de correo conocido (Gmail, Hotmail, Outlook, Yahoo…).");
       } else {
         setError("correo", "Error al crear la cuenta, intenta de nuevo.");
       }
