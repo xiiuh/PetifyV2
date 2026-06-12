@@ -7,8 +7,14 @@
         return;
     }
 
-    String correo = request.getUserPrincipal().getName();
-    String error  = null;
+    String correo    = request.getUserPrincipal().getName();
+    String error     = null;
+    String idCitaStr = request.getParameter("id_cita");
+    String idMascotaPreStr = request.getParameter("id_mascota");
+    Integer idCitaParam    = null;
+    Integer idMascotaPre   = null;
+    try { if (idCitaStr != null)      idCitaParam  = Integer.parseInt(idCitaStr); } catch (Exception ignored) {}
+    try { if (idMascotaPreStr != null) idMascotaPre = Integer.parseInt(idMascotaPreStr); } catch (Exception ignored) {}
 
     Context ctx = new InitialContext();
     DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petify");
@@ -34,17 +40,20 @@
             String observaciones=request.getParameter("observaciones");
 
             PreparedStatement ins = con.prepareStatement(
-                "INSERT INTO consultas (id_mascota, id_vete, motivo, motivo_otro, peso, diagnostico, tratamiento, medicamentos, observaciones) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                "INSERT INTO consultas (id_mascota, id_vete, id_cita, motivo, motivo_otro, peso, diagnostico, tratamiento, medicamentos, observaciones) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             ins.setInt(1, idMascota);
             ins.setInt(2, idVete);
+            String idCitaPost = request.getParameter("id_cita_hidden");
+            if (idCitaPost != null && !idCitaPost.isEmpty()) ins.setInt(3, Integer.parseInt(idCitaPost));
+            else ins.setNull(3, java.sql.Types.INTEGER);
             ins.setString(3, motivo);
             ins.setString(4, motivoOtro);
             if (peso != null) ins.setDouble(5, peso); else ins.setNull(5, java.sql.Types.DECIMAL);
-            ins.setString(6, diagnostico);
-            ins.setString(7, tratamiento);
-            ins.setString(8, medicamentos);
-            ins.setString(9, observaciones);
+            ins.setString(7, diagnostico);
+            ins.setString(8, tratamiento);
+            ins.setString(9, medicamentos);
+            ins.setString(10, observaciones);
             ins.executeUpdate();
             ins.close(); con.close();
 
@@ -111,12 +120,22 @@
             <% } %>
 
             <form method="post">
+                <input type="hidden" name="id_cita_hidden" value="<%= idCitaParam != null ? idCitaParam : "" %>"/>
+
+                <% if (idCitaParam != null) { %>
+                <p style="background:#e8f5e9;color:#2e7d32;border-radius:10px;padding:.6rem 1rem;margin-bottom:1rem;font-size:.9rem;font-weight:500;">
+                    Vinculada a la cita #<%= idCitaParam %>
+                </p>
+                <% } %>
+
                 <div class="form-group">
                     <label>Mascota <span class="required">*</span></label>
                     <select name="id_mascota" required class="select-field">
                         <option value="">Selecciona una mascota...</option>
-                        <% for (String[] m : mascotas) { %>
-                            <option value="<%= m[0] %>"><%= esc(m[3]) %> — <%= esc(m[1]) %> (<%= esc(m[2]) %>)</option>
+                        <% for (String[] m : mascotas) {
+                            boolean preSelected = idMascotaPre != null && idMascotaPre == Integer.parseInt(m[0]);
+                        %>
+                            <option value="<%= m[0] %>" <%= preSelected ? "selected" : "" %>><%= esc(m[3]) %> — <%= esc(m[1]) %> (<%= esc(m[2]) %>)</option>
                         <% } %>
                     </select>
                 </div>

@@ -81,6 +81,7 @@
                 "c.id_citas," +
                 "c.fecha," +
                 "c.hora," +
+                "c.id_mascota," +
                 "t.nom_tutor AS tutor," +
                 "m.nombre AS mascota " +
                 "FROM citas c " +
@@ -108,11 +109,14 @@
             <td><%= rs.getString("hora") %></td>
 
             <td>
+                <a href="registrarConsulta.jsp?id_cita=<%= rs.getInt("id_citas") %>&id_mascota=<%= rs.getInt("id_mascota") %>"
+                   class="btn-edit" style="background:#1a3d35;color:#fff;">
+                    + Consulta
+                </a>
                 <a href="editarCita.jsp?id=<%= rs.getInt("id_citas") %>"
                    class="btn-edit">
                     Editar
                 </a>
-
                 <a href="eliminarCita.jsp?id=<%= rs.getInt("id_citas") %>"
                    class="btn-del"
                    onclick="return confirm('¿Eliminar esta cita?')">

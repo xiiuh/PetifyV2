@@ -101,6 +101,7 @@
             "id_consulta INT NOT NULL AUTO_INCREMENT PRIMARY KEY," +
             "id_mascota INT NOT NULL," +
             "id_vete INT NOT NULL," +
+            "id_cita INT DEFAULT NULL," +
             "fecha_consulta DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP," +
             "motivo VARCHAR(50) NOT NULL," +
             "motivo_otro VARCHAR(150) DEFAULT NULL," +
@@ -110,7 +111,12 @@
             "medicamentos TEXT," +
             "observaciones TEXT," +
             "FOREIGN KEY (id_mascota) REFERENCES mascota(id_mascota)," +
-            "FOREIGN KEY (id_vete) REFERENCES veterinario(id_vete))");
+            "FOREIGN KEY (id_vete) REFERENCES veterinario(id_vete)," +
+            "FOREIGN KEY (id_cita) REFERENCES citas(id_citas))");
+        try {
+            st.executeUpdate("ALTER TABLE consultas ADD COLUMN id_cita INT DEFAULT NULL");
+            st.executeUpdate("ALTER TABLE consultas ADD FOREIGN KEY (id_cita) REFERENCES citas(id_citas)");
+        } catch (Exception ignored) {}
 
         st.close();
         con.close();
