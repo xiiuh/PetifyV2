@@ -60,7 +60,7 @@
             response.sendRedirect(request.getContextPath() + "/veterinario/expedientes.jsp?ok=1");
             return;
         } catch (Exception e) {
-            error = e.getClass().getSimpleName() + ": " + e.getMessage();
+            error = "Error al guardar la consulta. Intenta de nuevo.";
         }
     }
 

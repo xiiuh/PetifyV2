@@ -54,6 +54,7 @@
         .text-block {
             background:var(--blue-pale,#f4f6fb);border-radius:9px;
             padding:.75rem 1rem;font-size:.9rem;line-height:1.6;
+            overflow-wrap:break-word;word-break:break-word;white-space:pre-wrap;
         }
     </style>
 </head>

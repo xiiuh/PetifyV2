@@ -92,7 +92,7 @@
         .info-item label { font-size:.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:.2rem; }
         .info-item p { margin:0;font-size:.95rem; }
         .section-title { font-size:.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:1.5rem 0 .7rem;border-top:1px solid #eee;padding-top:1rem; }
-        .text-block { background:var(--blue-pale,#f4f6fb);border-radius:10px;padding:.85rem 1rem;font-size:.92rem;line-height:1.6;white-space:pre-wrap; }
+        .text-block { background:var(--blue-pale,#f4f6fb);border-radius:10px;padding:.85rem 1rem;font-size:.92rem;line-height:1.6;white-space:pre-wrap;overflow-wrap:break-word;word-break:break-word; }
         .empty-field { color:var(--muted);font-style:italic;font-size:.88rem;margin:0; }
         @media(max-width:520px){ .info-grid{grid-template-columns:1fr;} }
     </style>
