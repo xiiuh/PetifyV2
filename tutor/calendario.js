@@ -108,6 +108,8 @@ function confirmCita() {
             window.location.href = "listarCitas.jsp";
         } else if (resClean.includes("DUPLICADO")) {
             alert("Esta hora ya está ocupada para este veterinario.");
+        } else if (resClean.includes("FECHA_PASADA")) {
+            alert("No puedes agendar una cita en una fecha pasada.");
         } else if (resClean.includes("SQL_ERROR")) {
             alert("Error SQL: " + resClean);
         } else {

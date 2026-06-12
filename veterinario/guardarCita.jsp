@@ -26,6 +26,17 @@
         return;
     }
 
+    try {
+        java.time.LocalDate fechaDate = java.time.LocalDate.parse(fecha);
+        if (fechaDate.isBefore(java.time.LocalDate.now())) {
+            out.print("FECHA_PASADA");
+            return;
+        }
+    } catch (Exception eDateEx) {
+        out.print("ERROR_PARAMS");
+        return;
+    }
+
     try{
 
         Context ctx = new InitialContext();

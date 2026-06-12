@@ -37,8 +37,13 @@
         .badge-pendiente  { background:#fff8e1;color:#f57f17; }
         .badge-confirmada { background:#e8f5e9;color:#2e7d32; }
         .badge-cancelada  { background:#fce4ec;color:#c62828; }
-        details > summary { cursor:pointer; font-size:.85rem; color:var(--muted); }
-        details[open] > summary { margin-bottom:.4rem; }
+        .btn-detalle {
+            background:none; border:none; cursor:pointer;
+            font-size:.82rem; color:var(--muted); font-family:inherit;
+            padding:.2rem .4rem; border-radius:6px;
+            transition: color .15s, background .15s;
+        }
+        .btn-detalle:hover { color:var(--teal-dark); background:var(--teal-pale); }
     </style>
 </head>
 <body class="dashboard">
@@ -94,31 +99,31 @@
                     <td><%= "tarjeta".equals(metodo) ? "Tarjeta" : "Efectivo" %></td>
                     <td><span class="badge <%= badgeClass %>"><%= estadoLabel %></span></td>
                     <td>
-                        <details>
-                            <summary>Ver detalle</summary>
-                            <div style="overflow-x:auto;margin-top:.4rem;">
-                            <table class="tabla" style="min-width:280px;width:100%;">
-                                <thead><tr><th>Producto</th><th>Cant.</th><th>Precio u.</th><th>Subtotal</th></tr></thead>
-                                <tbody>
-                                <%
-                                    while (rsDet.next()) {
-                                        double pu = rsDet.getDouble("precio_unitario");
-                                        int    c  = rsDet.getInt("cantidad");
-                                %>
-                                    <tr>
-                                        <td><%= esc(rsDet.getString("nombre")) %></td>
-                                        <td><%= c %></td>
-                                        <td>$<%= String.format("%.2f", pu) %></td>
-                                        <td>$<%= String.format("%.2f", pu * c) %></td>
-                                    </tr>
-                                <% } %>
-                                </tbody>
-                                <tfoot>
-                                    <tr><th colspan="3">Total</th><th>$<%= String.format("%.2f", total) %></th></tr>
-                                </tfoot>
-                            </table>
-                            </div>
-                        </details>
+                        <button type="button" class="btn-detalle" onclick="toggleDet(<%= idOrden %>, this)">▼ Ver detalle</button>
+                    </td>
+                </tr>
+                <tr id="det-<%= idOrden %>" style="display:none;">
+                    <td colspan="6" style="padding:.5rem 1.2rem 1rem;background:#fafafa;">
+                        <table class="tabla" style="width:100%;margin:0;">
+                            <thead><tr><th>Producto</th><th>Cant.</th><th>Precio u.</th><th>Subtotal</th></tr></thead>
+                            <tbody>
+                            <%
+                                while (rsDet.next()) {
+                                    double pu = rsDet.getDouble("precio_unitario");
+                                    int    c  = rsDet.getInt("cantidad");
+                            %>
+                                <tr>
+                                    <td><%= esc(rsDet.getString("nombre")) %></td>
+                                    <td><%= c %></td>
+                                    <td>$<%= String.format("%.2f", pu) %></td>
+                                    <td>$<%= String.format("%.2f", pu * c) %></td>
+                                </tr>
+                            <% } %>
+                            </tbody>
+                            <tfoot>
+                                <tr><th colspan="3">Total</th><th>$<%= String.format("%.2f", total) %></th></tr>
+                            </tfoot>
+                        </table>
                     </td>
                 </tr>
                 <%
@@ -139,5 +144,17 @@
             </table>
         </div>
     </div>
+<script>
+function toggleDet(id, btn) {
+    var row = document.getElementById('det-' + id);
+    if (row.style.display === 'none') {
+        row.style.display = '';
+        btn.textContent = '▲ Ocultar';
+    } else {
+        row.style.display = 'none';
+        btn.textContent = '▼ Ver detalle';
+    }
+}
+</script>
 </body>
 </html>

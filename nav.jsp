@@ -42,10 +42,10 @@
     int _cartCount = _navCarrito != null ? _navCarrito.size() : 0;
 %>
 <div class="topbar">
-    <a href="<%= _navLoggedIn ? _dashUrl : request.getContextPath() + "/index.html" %>" class="logo">PETIFY</a>
+    <a href="<%= _navLoggedIn ? _dashUrl : request.getContextPath() + "/index.jsp" %>" class="logo">PETIFY</a>
     <div class="topbar-right">
         <% if (_navLoggedIn) { %>
-            <a href="<%= request.getContextPath() %>/index.html" class="topbar-link">Inicio</a>
+            <a href="<%= request.getContextPath() %>/index.jsp" class="topbar-link">Inicio</a>
         <% } %>
         <% if (_navIsTutor) { %>
             <a href="<%= request.getContextPath() %>/tienda.jsp"           class="topbar-link">Tienda</a>

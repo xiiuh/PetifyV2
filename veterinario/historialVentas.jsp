@@ -50,8 +50,13 @@
             background:#fff;font-family:inherit;font-size:.85rem;cursor:pointer;font-weight:500;
         }
         .filter-btn.active { border-color:var(--accent,#6b4ff6);color:var(--accent,#6b4ff6);background:#f3f0ff; }
-        details > summary { cursor:pointer; font-size:.85rem; color:var(--muted); }
-        details[open] > summary { margin-bottom:.4rem; }
+        .btn-detalle {
+            background:none; border:none; cursor:pointer;
+            font-size:.82rem; color:var(--muted); font-family:inherit;
+            padding:.2rem .4rem; border-radius:6px;
+            transition: color .15s, background .15s;
+        }
+        .btn-detalle:hover { color:var(--teal-dark); background:var(--teal-pale); }
     </style>
 </head>
 <body class="dashboard">
@@ -127,25 +132,25 @@
                     <td><%= "tarjeta".equals(metodo) ? "Tarjeta" : "Efectivo" %></td>
                     <td><span class="badge <%= badgeClass %>"><%= estadoLabel %></span></td>
                     <td>
-                        <details>
-                            <summary>Ver detalle</summary>
-                            <div style="overflow-x:auto;margin-top:.4rem;">
-                            <table class="tabla" style="min-width:280px;width:100%;">
-                                <thead><tr><th>Producto</th><th>Cant.</th><th>Precio u.</th></tr></thead>
-                                <tbody>
-                                <%
-                                    while (rsDet.next()) {
-                                %>
-                                    <tr>
-                                        <td><%= esc(rsDet.getString("nombre")) %></td>
-                                        <td><%= rsDet.getInt("cantidad") %></td>
-                                        <td>$<%= String.format("%.2f", rsDet.getDouble("precio_unitario")) %></td>
-                                    </tr>
-                                <% } %>
-                                </tbody>
-                            </table>
-                            </div>
-                        </details>
+                        <button type="button" class="btn-detalle" onclick="toggleDet(<%= idOrden %>, this)">▼ Ver detalle</button>
+                    </td>
+                </tr>
+                <tr id="det-<%= idOrden %>" style="display:none;">
+                    <td colspan="7" style="padding:.5rem 1.2rem 1rem;background:#fafafa;">
+                        <table class="tabla" style="width:100%;margin:0;">
+                            <thead><tr><th>Producto</th><th>Cant.</th><th>Precio u.</th></tr></thead>
+                            <tbody>
+                            <%
+                                while (rsDet.next()) {
+                            %>
+                                <tr>
+                                    <td><%= esc(rsDet.getString("nombre")) %></td>
+                                    <td><%= rsDet.getInt("cantidad") %></td>
+                                    <td>$<%= String.format("%.2f", rsDet.getDouble("precio_unitario")) %></td>
+                                </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
                     </td>
                 </tr>
                 <%
@@ -165,5 +170,17 @@
             </table>
         </div>
     </div>
+<script>
+function toggleDet(id, btn) {
+    var row = document.getElementById('det-' + id);
+    if (row.style.display === 'none') {
+        row.style.display = '';
+        btn.textContent = '▲ Ocultar';
+    } else {
+        row.style.display = 'none';
+        btn.textContent = '▼ Ver detalle';
+    }
+}
+</script>
 </body>
 </html>

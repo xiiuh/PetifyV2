@@ -371,16 +371,24 @@ body.dashboard {
   vertical-align: middle;
 }
 
-.topbar-link {
-  font-size: .85rem;
+.topbar-link,
+.topbar-link:visited {
+  font-size: .82rem;
   font-weight: 600;
   color: var(--teal-dark);
   text-decoration: none;
-  padding: .4rem .75rem;
+  padding: .35rem .9rem;
   border-radius: var(--radius-pill);
-  transition: background .18s, color .18s;
+  border: 1.5px solid rgba(26,61,53,.18);
+  background: transparent;
+  transition: background .18s, color .18s, border-color .18s;
+  white-space: nowrap;
 }
-.topbar-link:hover { background: var(--teal-pale); }
+.topbar-link:hover {
+  background: var(--teal-dark);
+  color: var(--white);
+  border-color: var(--teal-dark);
+}
 
 .topbar-cart {
   display: inline-flex;
