@@ -371,23 +371,23 @@ body.dashboard {
   vertical-align: middle;
 }
 
-.topbar-link,
-.topbar-link:visited {
-  font-size: .82rem;
-  font-weight: 600;
-  color: var(--teal-dark);
+a.topbar-link,
+a.topbar-link:link,
+a.topbar-link:visited {
+  font-size: .85rem;
+  font-weight: 500;
+  color: #1a3d35;
   text-decoration: none;
-  padding: .35rem .9rem;
-  border-radius: var(--radius-pill);
-  border: 1.5px solid rgba(26,61,53,.18);
+  padding: .32rem .7rem;
+  border-radius: 8px;
   background: transparent;
-  transition: background .18s, color .18s, border-color .18s;
+  transition: background .15s, color .15s;
   white-space: nowrap;
+  letter-spacing: .01em;
 }
-.topbar-link:hover {
-  background: var(--teal-dark);
-  color: var(--white);
-  border-color: var(--teal-dark);
+a.topbar-link:hover {
+  background: rgba(26,61,53,.09);
+  color: #1a3d35;
 }
 
 .topbar-cart {
@@ -450,7 +450,7 @@ body.dashboard {
 
 .tienda-header {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;

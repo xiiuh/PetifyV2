@@ -78,6 +78,7 @@
       </form>
       <div class="links">
         <a href="registroUsuario.html">¿No tienes cuenta? Regístrate</a>
+        <a href="${pageContext.request.contextPath}/index.jsp">← Volver al inicio</a>
       </div>
     </div>
 
