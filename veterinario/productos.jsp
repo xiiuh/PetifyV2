@@ -33,6 +33,7 @@
     <jsp:include page="/nav.jsp"/>
 
     <div class="main-content">
+        <a href="${pageContext.request.contextPath}/veterinario/agenda.jsp" class="btn-back">← Volver</a>
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;">
             <h2 class="page__title" style="margin:0;">Gestión de Productos</h2>
             <a href="${pageContext.request.contextPath}/veterinario/registrarProducto.jsp"

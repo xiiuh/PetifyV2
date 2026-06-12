@@ -44,11 +44,15 @@
 <div class="topbar">
     <a href="<%= _navLoggedIn ? _dashUrl : request.getContextPath() + "/index.html" %>" class="logo">PETIFY</a>
     <div class="topbar-right">
+        <% if (_navLoggedIn) { %>
+            <a href="<%= request.getContextPath() %>/index.html" class="topbar-link">Inicio</a>
+        <% } %>
         <% if (_navIsTutor) { %>
             <a href="<%= request.getContextPath() %>/tienda.jsp"           class="topbar-link">Tienda</a>
             <a href="<%= request.getContextPath() %>/tutor/misOrdenes.jsp" class="topbar-link">Mis pedidos</a>
         <% } %>
         <% if (_navLoggedIn) { %>
+            <span class="nav-divider"></span>
             <span class="user-welcome">Hola, <%= escN(_navNombre) %></span>
         <% } %>
         <% if (_navIsTutor) { %>

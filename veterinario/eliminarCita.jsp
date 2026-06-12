@@ -42,6 +42,12 @@
     rs.close();
     ps.close();
 
+    // Desvincula la cita de cualquier consulta antes de eliminarla
+    ps = con.prepareStatement("UPDATE consultas SET id_cita = NULL WHERE id_cita = ?");
+    ps.setInt(1, idCita);
+    ps.executeUpdate();
+    ps.close();
+
     ps = con.prepareStatement(
         "DELETE FROM citas " +
         "WHERE id_citas=? " +

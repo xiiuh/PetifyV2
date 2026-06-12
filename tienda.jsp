@@ -60,6 +60,9 @@
     <jsp:include page="/nav.jsp"/>
 
     <div class="main-content">
+        <% if (loggedIn) { %>
+        <a href="${pageContext.request.contextPath}/tutor/dashboard.jsp" class="btn-back">← Panel</a>
+        <% } %>
         <div class="tienda-header">
             <div>
                 <h2 class="page__title">Tienda</h2>

@@ -15,6 +15,13 @@ const hours = [
 
 // Escuchar los cambios en el input de fecha (si usas el tipo date del JSP anterior)
 if (calendarInput) {
+    // Bloquear fechas pasadas
+    const _hoy = new Date();
+    const _yyyy = _hoy.getFullYear();
+    const _mm   = String(_hoy.getMonth() + 1).padStart(2, '0');
+    const _dd   = String(_hoy.getDate()).padStart(2, '0');
+    calendarInput.min = `${_yyyy}-${_mm}-${_dd}`;
+
     calendarInput.addEventListener("change", (e) => {
         selectedDate = e.target.value; // Guarda la fecha en formato YYYY-MM-DD
         selectedTime = ""; // Reseteamos la hora si cambia de día

@@ -96,7 +96,8 @@
                     <td>
                         <details>
                             <summary>Ver detalle</summary>
-                            <table class="tabla" style="margin-top:.4rem;min-width:280px;">
+                            <div style="overflow-x:auto;margin-top:.4rem;">
+                            <table class="tabla" style="min-width:280px;width:100%;">
                                 <thead><tr><th>Producto</th><th>Cant.</th><th>Precio u.</th><th>Subtotal</th></tr></thead>
                                 <tbody>
                                 <%
@@ -116,6 +117,7 @@
                                     <tr><th colspan="3">Total</th><th>$<%= String.format("%.2f", total) %></th></tr>
                                 </tfoot>
                             </table>
+                            </div>
                         </details>
                     </td>
                 </tr>

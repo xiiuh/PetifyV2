@@ -129,7 +129,8 @@
                     <td>
                         <details>
                             <summary>Ver detalle</summary>
-                            <table class="tabla" style="margin-top:.4rem;min-width:280px;">
+                            <div style="overflow-x:auto;margin-top:.4rem;">
+                            <table class="tabla" style="min-width:280px;width:100%;">
                                 <thead><tr><th>Producto</th><th>Cant.</th><th>Precio u.</th></tr></thead>
                                 <tbody>
                                 <%
@@ -143,6 +144,7 @@
                                 <% } %>
                                 </tbody>
                             </table>
+                            </div>
                         </details>
                     </td>
                 </tr>
