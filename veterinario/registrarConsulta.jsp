@@ -47,9 +47,9 @@
             String idCitaPost = request.getParameter("id_cita_hidden");
             if (idCitaPost != null && !idCitaPost.isEmpty()) ins.setInt(3, Integer.parseInt(idCitaPost));
             else ins.setNull(3, java.sql.Types.INTEGER);
-            ins.setString(3, motivo);
-            ins.setString(4, motivoOtro);
-            if (peso != null) ins.setDouble(5, peso); else ins.setNull(5, java.sql.Types.DECIMAL);
+            ins.setString(4, motivo);
+            ins.setString(5, motivoOtro);
+            if (peso != null) ins.setDouble(6, peso); else ins.setNull(6, java.sql.Types.DECIMAL);
             ins.setString(7, diagnostico);
             ins.setString(8, tratamiento);
             ins.setString(9, medicamentos);
