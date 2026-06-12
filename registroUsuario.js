@@ -27,7 +27,7 @@ const dominiosPermitidos = new Set([
 function validarCorreo(v) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "Correo no válido.";
   const dominio = v.split("@")[1].toLowerCase();
-  if (!dominiosPermitidos.has(dominio)) return "Usa un proveedor de correo conocido (Gmail, Hotmail, Outlook, Yahoo…).";
+  if (!dominiosPermitidos.has(dominio)) return "Solo se permiten correos de proveedores conocidos.";
   return null;
 }
 
@@ -82,7 +82,7 @@ get("btn-register").addEventListener("click", async () => {
       if (text.includes("email_exists")) {
         setError("correo", "Este correo ya está registrado.");
       } else if (text.includes("invalid_domain")) {
-        setError("correo", "Usa un proveedor de correo conocido (Gmail, Hotmail, Outlook, Yahoo…).");
+        setError("correo", "Solo se permiten correos de proveedores conocidos.");
       } else {
         setError("correo", "Error al crear la cuenta, intenta de nuevo.");
       }
