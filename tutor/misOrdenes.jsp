@@ -42,10 +42,7 @@
     </style>
 </head>
 <body class="dashboard">
-    <div class="topbar">
-        <a href="${pageContext.request.contextPath}/tutor/dashboard.jsp" class="logo">PETIFY</a>
-        <a href="${pageContext.request.contextPath}/logout.jsp" class="btn-logout">Cerrar sesión</a>
-    </div>
+    <jsp:include page="/nav.jsp"/>
 
     <div class="main-content">
         <div style="margin-bottom:1.5rem;">

@@ -33,10 +33,7 @@
     </head>
     <body class="dashboard">
 
-        <div class="topbar">
-            <a href="${pageContext.request.contextPath}/tutor/dashboard.jsp" class="logo">PETIFY</a>
-            <a href="${pageContext.request.contextPath}/logout.jsp" class="btn-logout">Cerrar sesion</a>
-        </div>
+        <jsp:include page="/nav.jsp"/>
 
         <div class="main-content">
             <p class="page-welcome">Bienvenido, <span><%= nombreTutor %></span></p>

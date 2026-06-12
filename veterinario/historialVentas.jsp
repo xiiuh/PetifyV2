@@ -55,10 +55,7 @@
     </style>
 </head>
 <body class="dashboard">
-    <div class="topbar">
-        <a href="${pageContext.request.contextPath}/veterinario/agenda.jsp" class="logo">PETIFY</a>
-        <a href="${pageContext.request.contextPath}/logout.jsp" class="btn-logout">Cerrar sesión</a>
-    </div>
+    <jsp:include page="/nav.jsp"/>
 
     <div class="main-content">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;">

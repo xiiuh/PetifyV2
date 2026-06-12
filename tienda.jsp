@@ -57,33 +57,18 @@
 </head>
 <body class="dashboard">
 
-    <div class="topbar">
-        <% if (loggedIn) { %>
-        <a href="${pageContext.request.contextPath}/tutor/dashboard.jsp" class="logo">PETIFY</a>
-        <% } else { %>
-        <a href="${pageContext.request.contextPath}/index.html" class="logo">PETIFY</a>
-        <% } %>
-        <% if (loggedIn) { %>
-            <span class="user-welcome">Hola, <%= esc(nomTutor) %></span>
-            <a href="${pageContext.request.contextPath}/tutor/carritoCompras.jsp"
-               class="btn-acceso"
-               style="display:inline-block;width:auto;padding:.6rem 1.4rem;text-decoration:none;">
-                Carrito (<%= carrito.size() %> producto<%= carrito.size() != 1 ? "s" : "" %>)
-            </a>
-            <a href="${pageContext.request.contextPath}/logout.jsp" class="btn-logout">Cerrar sesión</a>
-        <% } else { %>
-            <a href="${pageContext.request.contextPath}/login.jsp" class="btn-acceso"
-               style="display:inline-block;width:auto;padding:.6rem 1.4rem;text-decoration:none;">
-                Iniciar sesión
-            </a>
-        <% } %>
-    </div>
+    <jsp:include page="/nav.jsp"/>
 
     <div class="main-content">
-        <h2 class="page__title">Tienda</h2>
-        <p class="page-sub">Productos disponibles para tu mascota</p>
+        <div class="tienda-header">
+            <div>
+                <h2 class="page__title">Tienda</h2>
+                <p class="page-sub">Productos disponibles para tu mascota</p>
+            </div>
+            <input type="search" id="buscador" class="search-bar" placeholder="Buscar producto...">
+        </div>
 
-        <div class="dashboard-grid" style="margin-top:1.5rem;">
+        <div class="dashboard-grid" id="producto-grid">
         <%
             boolean hayProductos = false;
             while (rs.next()) {
@@ -95,7 +80,7 @@
                 double precio = rs.getDouble("precio");
                 String img    = rs.getString("imagen");
         %>
-            <div class="dash-card" style="display:flex;flex-direction:column;gap:.75rem;">
+            <div class="dash-card product-card" style="display:flex;flex-direction:column;gap:.75rem;" data-nombre="<%= esc(nombre).toLowerCase() %>" data-desc="<%= esc(desc == null ? "" : desc).toLowerCase() %>">
                 <% if (img != null && !img.isEmpty()) { %>
                     <img src="${pageContext.request.contextPath}/img/productos/<%= esc(img) %>"
                          alt="<%= esc(nombre) %>"
@@ -138,5 +123,34 @@
         %>
         </div>
     </div>
+
+<script>
+(function () {
+    var input = document.getElementById('buscador');
+    var cards = document.querySelectorAll('.product-card');
+    var grid  = document.getElementById('producto-grid');
+    var noMsg = null;
+
+    input.addEventListener('input', function () {
+        var q = this.value.trim().toLowerCase();
+        var visible = 0;
+
+        cards.forEach(function (card) {
+            var texto = card.dataset.nombre + ' ' + card.dataset.desc;
+            var show  = texto.includes(q);
+            card.style.display = show ? '' : 'none';
+            if (show) visible++;
+        });
+
+        if (noMsg) { noMsg.remove(); noMsg = null; }
+        if (visible === 0 && q.length > 0) {
+            noMsg = document.createElement('p');
+            noMsg.className = 'no-results';
+            noMsg.textContent = 'Sin resultados para "' + this.value.trim() + '"';
+            grid.appendChild(noMsg);
+        }
+    });
+})();
+</script>
 </body>
 </html>

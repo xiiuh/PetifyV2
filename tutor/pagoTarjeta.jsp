@@ -98,10 +98,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
 </head>
 <body class="dashboard">
-    <div class="topbar">
-        <a href="${pageContext.request.contextPath}/tutor/dashboard.jsp" class="logo">PETIFY</a>
-        <a href="${pageContext.request.contextPath}/logout.jsp" class="btn-logout">Cerrar sesión</a>
-    </div>
+    <jsp:include page="/nav.jsp"/>
     <div class="main-content">
         <a href="${pageContext.request.contextPath}/tutor/carritoCompras.jsp" class="btn-back">← Volver al carrito</a>
         <div class="card" style="max-width:640px;padding:2rem;margin-top:1rem;">

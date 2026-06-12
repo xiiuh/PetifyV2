@@ -92,10 +92,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
 </head>
 <body class="dashboard">
-    <div class="topbar">
-        <span class="logo">PETIFY</span>
-        <a href="${pageContext.request.contextPath}/logout.jsp" class="btn-logout">Cerrar sesión</a>
-    </div>
+    <jsp:include page="/nav.jsp"/>
 
     <div class="main-content">
         <a href="${pageContext.request.contextPath}/veterinario/productos.jsp" class="btn-back">← Volver</a>
