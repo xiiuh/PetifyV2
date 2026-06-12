@@ -33,7 +33,7 @@
     email  = email.trim();
     telf   = telf.trim();
 
-    if (nombre.length() < 2 || email.isEmpty() || contra.length() < 6 || !telf.matches("^\\d{10}$")) {
+    if (nombre.length() < 2 || email.isEmpty() || contra.length() < 8 || !telf.matches("^\\d{10}$")) {
         response.setStatus(400);
         out.print("invalid_params");
         return;
@@ -60,6 +60,17 @@
     if (!dominiosPermitidos.contains(dominio)) {
         response.setStatus(400);
         out.print("invalid_domain");
+        return;
+    }
+
+    // Password strength validation
+    boolean passOk = contra.length() >= 8
+        && contra.matches(".*[A-Z].*")
+        && contra.matches(".*[0-9].*")
+        && contra.matches(".*[!@#$%^&*()\\-_=+\\[\\]{};':\",.\\<>?/\\\\|].*");
+    if (!passOk) {
+        response.setStatus(400);
+        out.print("weak_password");
         return;
     }
 
