@@ -7,7 +7,9 @@
     response.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
     if ("OPTIONS".equals(request.getMethod())) { response.setStatus(200); return; }
-
+%>
+<%@ include file="_checkToken.jsp" %>
+<%
     String idTutorStr = request.getParameter("id_tutor");
     if (idTutorStr == null || idTutorStr.isEmpty()) {
         out.print("{\"success\":false,\"mensaje\":\"Falta id_tutor\"}");

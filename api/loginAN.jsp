@@ -55,14 +55,24 @@
         int    idTutor  = rs.getInt("id_tutor");
         String nombre   = rs.getString("nom_tutor");
         String telefono = rs.getString("telefono");
-        rs.close(); ps.close(); con.close();
+        rs.close(); ps.close();
+
+        // Generar token de sesión
+        String token = java.util.UUID.randomUUID().toString();
+        ps = con.prepareStatement(
+            "INSERT INTO sesiones_api (id_tutor, token) VALUES (?, ?)");
+        ps.setInt(1, idTutor);
+        ps.setString(2, token);
+        ps.executeUpdate();
+        ps.close(); con.close();
 
         out.print("{\"success\":true"
-            + ",\"id_tutor\":"  + idTutor
-            + ",\"nombre\":\""  + nombre.replace("\"","\\\"") + "\""
-            + ",\"correo\":\""  + correo.replace("\"","\\\"") + "\""
+            + ",\"id_tutor\":"   + idTutor
+            + ",\"nombre\":\""   + nombre.replace("\"","\\\"") + "\""
+            + ",\"correo\":\""   + correo.replace("\"","\\\"") + "\""
             + ",\"telefono\":\"" + telefono.replace("\"","\\\"") + "\""
-            + ",\"rol\":\""     + rol.replace("\"","\\\"") + "\""
+            + ",\"rol\":\""      + rol.replace("\"","\\\"") + "\""
+            + ",\"token\":\""    + token + "\""
             + "}");
 
     } catch (Exception e) {

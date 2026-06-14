@@ -7,7 +7,9 @@
     response.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
     if ("OPTIONS".equals(request.getMethod())) { response.setStatus(200); return; }
-
+%>
+<%@ include file="_checkToken.jsp" %>
+<%
     String nombre    = request.getParameter("nombre");
     String especie   = request.getParameter("especie");
     String raza      = request.getParameter("raza");

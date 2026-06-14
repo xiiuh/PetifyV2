@@ -118,6 +118,13 @@
             st.executeUpdate("ALTER TABLE consultas ADD FOREIGN KEY (id_cita) REFERENCES citas(id_citas)");
         } catch (Exception ignored) {}
 
+        st.executeUpdate("CREATE TABLE IF NOT EXISTS sesiones_api (" +
+            "id INT AUTO_INCREMENT PRIMARY KEY," +
+            "id_tutor INT NOT NULL," +
+            "token VARCHAR(36) NOT NULL UNIQUE," +
+            "fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP," +
+            "FOREIGN KEY (id_tutor) REFERENCES tutor(id_tutor))");
+
         st.close();
         con.close();
 
