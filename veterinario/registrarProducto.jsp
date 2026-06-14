@@ -26,7 +26,7 @@
                 Set<String> extsPermitidas = new HashSet<>(Arrays.asList(".jpg",".jpeg",".png",".gif",".webp"));
                 if (!extsPermitidas.contains(ext)) throw new Exception("Tipo de archivo no permitido.");
                 imagenNombre = UUID.randomUUID().toString() + ext;
-                String uploadDir = "/opt/petify_uploads/productos";
+                String uploadDir = application.getRealPath("/img/productos");
                 new File(uploadDir).mkdirs();
                 filePart.write(uploadDir + File.separator + imagenNombre);
             }
