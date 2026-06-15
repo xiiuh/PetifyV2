@@ -254,25 +254,21 @@
         <%-- KPIs --%>
         <div class="kpi-grid">
             <div class="kpi-card">
-                <div class="kpi-icon">💰</div>
                 <div class="kpi-label">Ingresos este mes</div>
                 <div class="kpi-value">$<%= String.format("%,.2f", kpiIngresos) %></div>
                 <div class="kpi-sub">Órdenes confirmadas y pendientes</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-icon">📅</div>
                 <div class="kpi-label">Citas este mes</div>
                 <div class="kpi-value"><%= kpiCitas %></div>
                 <div class="kpi-sub">Consultas agendadas</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-icon">🐾</div>
                 <div class="kpi-label">Pacientes registrados</div>
                 <div class="kpi-value"><%= kpiPacientes %></div>
                 <div class="kpi-sub">Total de mascotas en el sistema</div>
             </div>
             <div class="kpi-card">
-                <div class="kpi-icon">📦</div>
                 <div class="kpi-label">Productos en stock</div>
                 <div class="kpi-value"><%= kpiProductos %></div>
                 <div class="kpi-sub">Con cantidad disponible</div>
