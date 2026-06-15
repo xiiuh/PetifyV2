@@ -56,6 +56,10 @@
                 <h3>Expedientes Clínicos</h3>
                 <p>Registra y consulta el historial de consultas de cada paciente</p>
             </a>
+            <a href="${pageContext.request.contextPath}/veterinario/analiticas.jsp" class="dash-card">
+                <h3>Analíticas</h3>
+                <p>Gráficas de ventas, citas y actividad clínica</p>
+            </a>
         </div>
     </div>
 </body>
