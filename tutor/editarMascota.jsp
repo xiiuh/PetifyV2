@@ -131,7 +131,16 @@
                     <div class="form-group">
                         <label>Especie</label>
                         <div class="input-wrap">
-                            <input type="text" name="especie" required value="<%= esc(especie) %>"/>
+                            <select name="especie" id="selectEspecie" required class="select-input" onchange="actualizarRazas(this.value, null)">
+                                <option value="">Selecciona una especie...</option>
+                                <option value="Perro"   <%= "Perro".equals(especie)   ? "selected" : "" %>>Perro</option>
+                                <option value="Gato"    <%= "Gato".equals(especie)    ? "selected" : "" %>>Gato</option>
+                                <option value="Conejo"  <%= "Conejo".equals(especie)  ? "selected" : "" %>>Conejo</option>
+                                <option value="Hámster" <%= "Hámster".equals(especie) ? "selected" : "" %>>Hámster</option>
+                                <option value="Ave"     <%= "Ave".equals(especie)     ? "selected" : "" %>>Ave</option>
+                                <option value="Pez"     <%= "Pez".equals(especie)     ? "selected" : "" %>>Pez</option>
+                                <option value="Tortuga" <%= "Tortuga".equals(especie) ? "selected" : "" %>>Tortuga</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -140,7 +149,9 @@
                     <div class="form-group">
                         <label>Raza</label>
                         <div class="input-wrap">
-                            <input type="text" name="raza" required value="<%= esc(raza) %>"/>
+                            <select name="raza" id="selectRaza" required class="select-input">
+                                <option value="">Primero selecciona una especie</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -178,5 +189,33 @@
         </div>
     </div>
 
+    <script>
+    const RAZAS = {
+        "Perro":   ["Labrador Retriever","Golden Retriever","Bulldog Francés","Beagle","Pastor Alemán","Chihuahua","Poodle","Yorkshire Terrier","Shih Tzu","Rottweiler","Mestizo"],
+        "Gato":    ["Siamés","Persa","Maine Coon","Bengalí","Ragdoll","Sphynx","Británico de Pelo Corto","Mestizo"],
+        "Conejo":  ["Holland Lop","Mini Rex","Angora","Nueva Zelanda","Mestizo"],
+        "Hámster": ["Sirio","Ruso Enano","Roborovski"],
+        "Ave":     ["Periquito","Canario","Loro","Cacatúa","Agapornis"],
+        "Pez":     ["Goldfish","Betta","Guppy","Tetra Neón","Koi"],
+        "Tortuga": ["Orejas Rojas","Griega","Mediterránea"]
+    };
+    function actualizarRazas(especie, seleccionada) {
+        var sel = document.getElementById('selectRaza');
+        sel.innerHTML = '';
+        var razas = RAZAS[especie] || [];
+        if (razas.length === 0) {
+            sel.innerHTML = '<option value="">Selecciona una especie primero</option>';
+            return;
+        }
+        razas.forEach(function(r) {
+            var opt = document.createElement('option');
+            opt.value = r; opt.textContent = r;
+            if (seleccionada && r === seleccionada) opt.selected = true;
+            sel.appendChild(opt);
+        });
+    }
+    // Pre-cargar razas con la especie y raza actuales
+    actualizarRazas("<%= esc(especie) %>", "<%= esc(raza) %>");
+    </script>
 </body>
 </html>

@@ -105,7 +105,16 @@
                         <div class="form-group">
                             <label>Especie</label>
                             <div class="input-wrap">
-                                <input type="text" name="especie" required placeholder="Perro, Gato..."/>
+                                <select name="especie" id="selectEspecie" required class="select-input" onchange="actualizarRazas(this.value)">
+                                    <option value="">Selecciona una especie...</option>
+                                    <option value="Perro">Perro</option>
+                                    <option value="Gato">Gato</option>
+                                    <option value="Conejo">Conejo</option>
+                                    <option value="Hámster">Hámster</option>
+                                    <option value="Ave">Ave</option>
+                                    <option value="Pez">Pez</option>
+                                    <option value="Tortuga">Tortuga</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -114,7 +123,9 @@
                         <div class="form-group">
                             <label>Raza</label>
                             <div class="input-wrap">
-                                <input type="text" name="raza" required placeholder="Raza"/>
+                                <select name="raza" id="selectRaza" required class="select-input">
+                                    <option value="">Primero selecciona una especie</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -151,5 +162,31 @@
                 </div>
             </div>
         </div>
+    <script>
+    const RAZAS = {
+        "Perro":   ["Labrador Retriever","Golden Retriever","Bulldog Francés","Beagle","Pastor Alemán","Chihuahua","Poodle","Yorkshire Terrier","Shih Tzu","Rottweiler","Mestizo"],
+        "Gato":    ["Siamés","Persa","Maine Coon","Bengalí","Ragdoll","Sphynx","Británico de Pelo Corto","Mestizo"],
+        "Conejo":  ["Holland Lop","Mini Rex","Angora","Nueva Zelanda","Mestizo"],
+        "Hámster": ["Sirio","Ruso Enano","Roborovski"],
+        "Ave":     ["Periquito","Canario","Loro","Cacatúa","Agapornis"],
+        "Pez":     ["Goldfish","Betta","Guppy","Tetra Neón","Koi"],
+        "Tortuga": ["Orejas Rojas","Griega","Mediterránea"]
+    };
+    function actualizarRazas(especie, seleccionada) {
+        var sel = document.getElementById('selectRaza');
+        sel.innerHTML = '';
+        var razas = RAZAS[especie] || [];
+        if (razas.length === 0) {
+            sel.innerHTML = '<option value="">Selecciona una especie primero</option>';
+            return;
+        }
+        razas.forEach(function(r) {
+            var opt = document.createElement('option');
+            opt.value = r; opt.textContent = r;
+            if (seleccionada && r === seleccionada) opt.selected = true;
+            sel.appendChild(opt);
+        });
+    }
+    </script>
     </body>
 </html>
