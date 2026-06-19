@@ -37,7 +37,8 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* ===== Ola (fondo login) ===== */
