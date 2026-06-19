@@ -23,6 +23,20 @@
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petify");
         Connection con = ds.getConnection();
 
+        // Verificar que la mascota pertenece al tutor autenticado
+        PreparedStatement psOwn = con.prepareStatement(
+            "SELECT id_mascota FROM mascota WHERE id_mascota = ? AND id_tutor = ?");
+        psOwn.setInt(1, idMascota);
+        psOwn.setInt(2, idTutorAuth);
+        ResultSet rsOwn = psOwn.executeQuery();
+        boolean esPropia = rsOwn.next();
+        rsOwn.close(); psOwn.close();
+        if (!esPropia) {
+            con.close();
+            out.print("{\"success\":false,\"mensaje\":\"No autorizado\"}");
+            return;
+        }
+
         PreparedStatement ps = con.prepareStatement(
             "SELECT c.id_consulta, c.motivo, c.motivo_otro, c.peso, c.diagnostico, " +
             "       c.tratamiento, c.medicamentos, c.observaciones, " +

@@ -10,14 +10,8 @@
 %>
 <%@ include file="_checkToken.jsp" %>
 <%
-    String idTutorStr = request.getParameter("id_tutor");
-    if (idTutorStr == null || idTutorStr.isEmpty()) {
-        out.print("{\"success\":false,\"mensaje\":\"Falta id_tutor\"}");
-        return;
-    }
-
     try {
-        int idTutor = Integer.parseInt(idTutorStr);
+        int idTutor = idTutorAuth;
 
         Context ctx = new InitialContext();
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petify");
@@ -53,8 +47,6 @@
         rs.close(); ps.close(); con.close();
         out.print(sb.toString());
 
-    } catch (NumberFormatException e) {
-        out.print("{\"success\":false,\"mensaje\":\"id_tutor inválido\"}");
     } catch (Exception e) {
         out.print("{\"success\":false,\"mensaje\":\"Error interno\"}");
     }

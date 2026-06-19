@@ -11,12 +11,13 @@
 
     String idParam = request.getParameter("id");
 
-    if(idParam==null){
+    int idCita;
+    try {
+        idCita = Integer.parseInt(idParam);
+    } catch (Exception e) {
         response.sendRedirect("listarCitas.jsp");
         return;
     }
-
-    int idCita = Integer.parseInt(idParam);
 
     Context ctx = new InitialContext();
 

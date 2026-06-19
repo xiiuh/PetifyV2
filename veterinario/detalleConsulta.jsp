@@ -8,12 +8,13 @@
     }
 
     String idParam = request.getParameter("id");
-    if (idParam == null) {
+    int idConsulta;
+    try {
+        idConsulta = Integer.parseInt(idParam);
+    } catch (Exception e) {
         response.sendRedirect(request.getContextPath() + "/veterinario/expedientes.jsp");
         return;
     }
-
-    int idConsulta = Integer.parseInt(idParam);
 
     Context ctx = new InitialContext();
     DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petify");

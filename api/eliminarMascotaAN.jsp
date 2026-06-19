@@ -23,6 +23,20 @@
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petify");
         Connection con = ds.getConnection();
 
+        // 0. Verificar que la mascota pertenece al tutor autenticado
+        PreparedStatement psOwn = con.prepareStatement(
+            "SELECT id_mascota FROM mascota WHERE id_mascota = ? AND id_tutor = ?");
+        psOwn.setInt(1, idMascota);
+        psOwn.setInt(2, idTutorAuth);
+        ResultSet rsOwn = psOwn.executeQuery();
+        boolean esPropia = rsOwn.next();
+        rsOwn.close(); psOwn.close();
+        if (!esPropia) {
+            con.close();
+            out.print("{\"success\":false,\"mensaje\":\"No autorizado\"}");
+            return;
+        }
+
         // 1. Nullear FK en consultas que apuntan a citas de esta mascota
         PreparedStatement ps = con.prepareStatement(
             "UPDATE consultas SET id_cita = NULL WHERE id_cita IN " +
@@ -36,8 +50,9 @@
         ps.executeUpdate(); ps.close();
 
         // 3. Eliminar la mascota
-        ps = con.prepareStatement("DELETE FROM mascota WHERE id_mascota = ?");
+        ps = con.prepareStatement("DELETE FROM mascota WHERE id_mascota = ? AND id_tutor = ?");
         ps.setInt(1, idMascota);
+        ps.setInt(2, idTutorAuth);
         ps.executeUpdate(); ps.close();
 
         con.close();

@@ -8,7 +8,13 @@
     }
 
     String correo = request.getUserPrincipal().getName();
-    int idCita = Integer.parseInt(request.getParameter("id"));
+    int idCita;
+    try {
+        idCita = Integer.parseInt(request.getParameter("id"));
+    } catch (Exception e) {
+        response.sendRedirect("listarCitas.jsp");
+        return;
+    }
 
     Context ctx = new javax.naming.InitialContext();
     DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petify");

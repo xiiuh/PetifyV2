@@ -16,18 +16,17 @@
     String edad      = request.getParameter("edad");
     String pesoStr   = request.getParameter("peso");
     String sexo      = request.getParameter("sexo");
-    String idTutorStr  = request.getParameter("id_tutor");
     String idMascotaStr = request.getParameter("id_mascota");
 
     if (nombre == null || especie == null || raza == null || edad == null ||
-        pesoStr == null || sexo == null || idTutorStr == null) {
+        pesoStr == null || sexo == null) {
         out.print("{\"success\":false,\"mensaje\":\"Faltan parámetros obligatorios\"}");
         return;
     }
 
     try {
         double peso    = Double.parseDouble(pesoStr);
-        int    idTutor = Integer.parseInt(idTutorStr);
+        int    idTutor = idTutorAuth;
 
         Context ctx = new InitialContext();
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petify");

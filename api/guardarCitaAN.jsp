@@ -14,12 +14,18 @@
     String hora        = request.getParameter("hora");
     String idMascotaStr = request.getParameter("id_mascota");
     String idVeteStr    = request.getParameter("id_vete");
-    String idTutorStr   = request.getParameter("id_tutor");
     String idCitasStr   = request.getParameter("id_citas");
 
-    if (fecha == null || hora == null || idMascotaStr == null ||
-        idVeteStr == null || idTutorStr == null) {
+    if (fecha == null || hora == null || idMascotaStr == null || idVeteStr == null) {
         out.print("{\"success\":false,\"mensaje\":\"Faltan parámetros obligatorios\"}");
+        return;
+    }
+
+    java.util.Set<String> horasOk = new java.util.HashSet<>(java.util.Arrays.asList(
+        "09:00","10:00","11:00","12:00","13:00","16:00","17:00","18:00"
+    ));
+    if (!horasOk.contains(hora)) {
+        out.print("{\"success\":false,\"mensaje\":\"Hora no válida\"}");
         return;
     }
 
@@ -33,7 +39,7 @@
 
         int idMascota = Integer.parseInt(idMascotaStr);
         int idVete    = Integer.parseInt(idVeteStr);
-        int idTutor   = Integer.parseInt(idTutorStr);
+        int idTutor   = idTutorAuth;
 
         Context ctx = new InitialContext();
         DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petify");

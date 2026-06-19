@@ -15,7 +15,8 @@
     // ── KPIs ──────────────────────────────────────────────────────────────
     ps = con.prepareStatement(
         "SELECT COALESCE(SUM(total),0) FROM ordenes " +
-        "WHERE YEAR(fecha_compra)=YEAR(NOW()) AND MONTH(fecha_compra)=MONTH(NOW())");
+        "WHERE YEAR(fecha_compra)=YEAR(NOW()) AND MONTH(fecha_compra)=MONTH(NOW()) " +
+        "AND estado='confirmada'");
     rs = ps.executeQuery(); rs.next();
     double kpiIngresos = rs.getDouble(1);
     rs.close(); ps.close();
@@ -54,6 +55,7 @@
     ps = con.prepareStatement(
         "SELECT DATE_FORMAT(fecha_compra,'%Y-%m') mes, SUM(total) tot " +
         "FROM ordenes WHERE fecha_compra >= DATE_SUB(NOW(), INTERVAL 6 MONTH) " +
+        "AND estado='confirmada' " +
         "GROUP BY mes ORDER BY mes");
     rs = ps.executeQuery();
     while (rs.next()) { if (mapIngresos.containsKey(rs.getString("mes"))) mapIngresos.put(rs.getString("mes"), rs.getDouble("tot")); }

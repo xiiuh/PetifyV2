@@ -5,16 +5,17 @@
         out.print("{\"success\":false,\"mensaje\":\"No autorizado\"}");
         return;
     }
+    int idTutorAuth = 0;
     try {
         Context _authCtx = new InitialContext();
         DataSource _authDs = (DataSource) _authCtx.lookup("java:comp/env/jdbc/petify");
         Connection _authCon = _authDs.getConnection();
         PreparedStatement _authPs = _authCon.prepareStatement(
-            "SELECT COUNT(*) FROM sesiones_api WHERE token=?");
+            "SELECT id_tutor FROM sesiones_api WHERE token=?");
         _authPs.setString(1, _authToken);
         ResultSet _authRs = _authPs.executeQuery();
-        _authRs.next();
-        boolean _authValid = _authRs.getInt(1) > 0;
+        boolean _authValid = _authRs.next();
+        if (_authValid) idTutorAuth = _authRs.getInt("id_tutor");
         _authRs.close(); _authPs.close(); _authCon.close();
         if (!_authValid) {
             out.print("{\"success\":false,\"mensaje\":\"No autorizado\"}");

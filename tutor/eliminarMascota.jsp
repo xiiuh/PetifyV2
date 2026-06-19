@@ -9,12 +9,13 @@
     String correo = request.getUserPrincipal().getName();
     String idParam = request.getParameter("id");
 
-    if (idParam == null) {
+    int idMascota;
+    try {
+        idMascota = Integer.parseInt(idParam);
+    } catch (Exception e) {
         response.sendRedirect(request.getContextPath() + "/tutor/listarMascotas.jsp");
         return;
     }
-
-    int idMascota = Integer.parseInt(idParam);
 
     try {
         Context ctx = new InitialContext();

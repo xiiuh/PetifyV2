@@ -8,8 +8,13 @@
 
     String correo = request.getUserPrincipal().getName();
     String idParam = request.getParameter("id");
-    if (idParam == null) { response.sendRedirect("listarCitas.jsp"); return; }
-    int idCita = Integer.parseInt(idParam);
+    int idCita;
+    try {
+        idCita = Integer.parseInt(idParam);
+    } catch (Exception e) {
+        response.sendRedirect("listarCitas.jsp");
+        return;
+    }
 
     Context ctx = new javax.naming.InitialContext();
     DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/petify");
@@ -21,6 +26,12 @@
     int idTutor = 0;
     if (rs.next()) idTutor = rs.getInt("id_tutor");
     rs.close(); ps.close();
+
+    // Desvincula la cita de cualquier consulta antes de eliminarla
+    ps = con.prepareStatement("UPDATE consultas SET id_cita = NULL WHERE id_cita = ?");
+    ps.setInt(1, idCita);
+    ps.executeUpdate();
+    ps.close();
 
     ps = con.prepareStatement("DELETE FROM citas WHERE id_citas = ? AND id_tutor = ?");
     ps.setInt(1, idCita);
